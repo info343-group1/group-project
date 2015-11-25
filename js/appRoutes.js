@@ -11,6 +11,11 @@ angular.module('appRoutes', ['ui.router']).config(function($stateProvider, $urlR
 			url:'/events',
 			templateUrl:'./views/events.html',
 			controller:'EventsCtrl'
+		})
+		.state('profile',{
+			url:'/profile',
+			templateUrl:'./views/events.html',
+			controller:'ProfileCtrl'
 		});
 	$(".button-collapse").sideNav();
 });
