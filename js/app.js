@@ -6,4 +6,6 @@ angular.module('app',
 	'firebase',
     'EventService',
     'FirebaseService']
+
+    
 );

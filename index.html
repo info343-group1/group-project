@@ -50,8 +50,41 @@
 </head>
 
 <body ng-app="app">
-  
+  <div class="navbar-fixed">
+    <nav class="teal lighten-1">
+      <div class="nav-wrapper container">
+        <a id="logo-container" href="#" class="brand-logo">Project Logo</a>
+        <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a ui-sref="main">Home</a></li>
+          <li><a ui-sref="events">Events</a></li>
+          <li><a ui-sref="profile">My Profile</a></li>
+        </ul>
+        <ul class="side-nav" id="mobile-nav">
+          <li><a ui-sref="main">Home</a></li>
+          <li><a ui-sref="events">Events</a></li>
+          <li><a ui-sref="profile">My Profile</a></li>
+        </ul>   
+      </div>
+    </nav>
+  </div>
 
   <div ui-view></div>
+
+<!--   <footer class="page-footer teal lighten-1">
+    <div class="container">
+      <ul>
+        <li><a class="grey-text text-lighten-3" ui-sref="main">Home</a></li>
+        <li><a class="grey-text text-lighten-3" ui-sref="events">Events</a></li>
+        <li><a class="grey-text text-lighten-3" ui-sref="profile">My Profile</a></li>
+      </ul> 
+    </div>
+    <div class="footer-copyright teal darken-1">
+      <div class="container">
+      Placeholder text    
+      </div>
+  </footer>
+ -->
+
 </body>
 </html>

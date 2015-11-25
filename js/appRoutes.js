@@ -12,4 +12,5 @@ angular.module('appRoutes', ['ui.router']).config(function($stateProvider, $urlR
 			templateUrl:'./views/events.html',
 			controller:'EventsCtrl'
 		});
+	$(".button-collapse").sideNav();
 });
