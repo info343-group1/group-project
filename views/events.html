@@ -1,25 +1,52 @@
 <!-- Events Page -->
-
 <div class="container">
     <h2 class="center">Header Text</h2>
     <div class="row center">
         <h3 class="col s12">Lorem ipsum dolor sit amet, pellentesque rhoncus, vel malesuada. Per amet a, vulputate et mi, mattis vitae. Bibendum arcu urna, ligula praesent.</h3>
-        <a class="waves-effect waves-light btn-large" data-target="eventModal" modal>Create an Event</a>
-    </div>
-    <div class="col">
-    <a class='btn' href='#demoModal' modal>Show Modal</a>
-</div>
-<!-- Modal Structure -->
-<div id="demoModal" class="modal">
-    <div class="modal-content">
-        <h4>Modal header</h4>
-        <p>A bunch of text</p>
+        <a class="btn-large" href="#createModal" modal>Create an Event</a>
     </div>
 </div>
 <!-- Modal -->
-<div id="eventModal" class="modal">
-	<div class="modal-content">
-		<h2>I'm a Modal</h2>
-	</div>
-
+<div id="createModal" class="modal" >
+	<div class="container">
+		<div class="row">
+			<div class="col s4 l6">
+				<img src="https://upload.wikimedia.org/wikipedia/commons/7/77/SpaceNeedleTopClose.jpg" class="circle responsive-img">
+			</div>
+			<div class="col s8 l6">
+				<h5>Account Name</h5>
+				<h5>Account Info</h5>
+				<h5>Account Info</h5>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<input id="eventName" type="text" class="validate">
+				<label for="eventName">Event Name</label>
+			</div>
+			<div class="input-field col s12">
+				<input id="eventDate" type="date" class="datepicker">
+				<label for="eventDate"></label>
+                      <!-- Date Picker is a cool option but this is a design
+                      choice for the group since there will be two modals
+                      stacked on top of each other -->
+            </div>
+            <div class="input-field col s12">
+            	<input id="eventAddress" type="text" class="validate">
+                  <label for="eventAddress">Event Address</label>
+            </div>
+            <div class="input-field col s12">
+            	<input id="eventZip" type="number" class="validate">
+                 <label for="eventZip">Zip Code of Event</label>
+            </div>
+            <div class="input-field col s12">
+            	<textarea id="eventDesc" class="materialize-textarea"></textarea>
+                 <label for="eventDesc">Event Description</label>
+             </div>
+             <br>
+             <a class="btn" type="submit">Submit</a>
+             <a class="btn">Cancel</a>
+         </div>
+     </div> 
 </div>
+    
