@@ -1,2 +1,5 @@
 @import url (https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css); 
-
+#mock-map{
+	height: 655px;
+	width: 100%;
+}
