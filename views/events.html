@@ -6,7 +6,7 @@
         <a class="btn-large" href="#createModal" modal>Create an Event</a>
     </div>
 </div>
-<!-- Modal -->
+<!-- Create Modal -->
 <div id="createModal" class="modal" >
 	<div class="container">
 		<div class="row">
@@ -49,4 +49,102 @@
          </div>
      </div> 
 </div>
+<!-- End of Create Modal -->
+
+<div class="container">
+    <div class="row eventSearch">
+        <!-- #eventName, #eventType, and #eventZip will leverage jQuery UI's 
+        autocomplete feature  -->
+        <div class="input-field col s12 l6">
+            <input id="eventName" type="text" class="validate" ng-model="eventName">
+                <label for="eventName">Search for an Event</label>       
+        </div>
+        <div class="input-field col s12 l6">
+            <input id="eventType" type="text" class="validate" ng-model="eventType">
+                <label for="eventType">Search for Event Type</label>       
+        </div>
+        <div class="input-field col s12 l6">
+            <input id="eventDate" type="date" class="validate" ng-model="eventDate">
+                <label for="eventDate"></label>                   
+        </div>
+        <div class="input-field col s12 l6">
+            <input id="eventDate" type="text" class="validate" ng-model="eventZip">
+                <label for="eventZip">Search for Event Neighboorhood</label>                   
+        </div>
+    </div>
+    <!-- Below is a the list of Seattle Neighborhoods with corresponding Zip Code
+    1. 98177 North Seattle
+    2. 98133 Haller Lake / Northgate
+    3. 98125 Northgate / Lake City 
+    4. 98117 Greenwood / Phinney Ridge
+    5. 98103 Greenlake / Freemont
+    6. 98115 Wedgewood / Maple Leaf / Sand Point
+    7. 98107 Ballard
+    8. 98105 University District
+    9. 98199 Magnolia
+    10. 98119 Queen Anne
+    11. 98109 South Lake Union 
+    12. 98102 Capitol Hill
+    13. 98122 Centeral District / Madison 
+    14. 98121 Belltown
+    15. 98101 Downtown
+    16. 98122 Capitoll Hill / Central District / Madrona
+    17. 98104 International District / Pionneer Square 
+    18. 98134 SoDo
+    19. 98144  Atlantic / North Beacon Hill 
+    20. 98116 West Seattle
+    21. 9126 West Seattle 
+    22. 98136 South Park
+    23. 98106 Delridge
+    24. 98108 Beacon Hill / Georgetown
+    26. 98118 Columbia City / Rainer Valley -->
+    <div class="row center">
+        <div class="col s12">
+            <a class="btn-large center" ng-click="searchQuery()"><i class="material-icons left">search</i>Search</a>
+        </div>
+    </div>
+    <!-- Not sure if it makes more sense to put search button above or below the map -->
+    <div class="row">
+        <div class="col s12">
+            <img id="searchMap" src="http://images.travelpod.com/cache/accom_maps/Holiday_Inn_Express_Seattle_City_Center_Wa-Seattle.gif"> 
+        </div>
+    </div>
+</div>
+
+<!-- Show Results -->
+<div class="container eventResults" ng-hide="results">
+    <table class= "responsive-table">
+        <thead>
+            <tr>
+                <td>
+                    <a href='#' ng-click= "sortType='eventName'">Event Name</a>
+                </td>
+                <td>
+                    <a href='#' ng-click= "sortType='eventZip'">Event Neighborhood</a>
+                </td>                
+                <td>
+                    <a href='#' ng-click= "sortType='eventType'">Event Type</a>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr> <!-- ng-repeat="ele in data | orederBy:sortType| filter:{eventName,eventZip,eventType}" -->
+                <td>
+                    <a>{{ele.Name}}</a>
+                </td>
+                <td>
+                    <a>{{ele.Zip}}</a>
+                </td>
+                <td>
+                    <a>{{ele.Type}}</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
     

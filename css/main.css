@@ -3,3 +3,13 @@
 	height: 655px;
 	width: 100%;
 }
+.eventSearch{
+	margin-top: 100px;
+}
+.eventResults{
+	margin-top: 100px;
+}
+#searchMap{
+	margin-top: 50px;
+	min-width: 100%
+}
