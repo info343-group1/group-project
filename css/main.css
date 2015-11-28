@@ -1,6 +1,5 @@
 @import url (https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css); 
 #mock-map{
-	height: 655px;
 	width: 100%;
 }
 .eventSearch{
@@ -12,4 +11,10 @@
 #searchMap{
 	margin-top: 50px;
 	min-width: 100%
+}
+.modalMap{
+	min-height: 100%;
+}
+.reviews{
+	margin-top: 50px;
 }
