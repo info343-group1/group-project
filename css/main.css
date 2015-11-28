@@ -1,4 +1,11 @@
 @import url (https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css); 
+
+.backgroundImg{
+    min-width: 100%;
+    height: 500px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 #mock-map{
 	width: 100%;
 }
@@ -17,4 +24,10 @@
 }
 .reviews{
 	margin-top: 50px;
+}
+.profileTable{
+	margin-top: 50px;
+}
+.profileInfo{
+	margin-top: 100px;
 }
