@@ -8,4 +8,8 @@ angular.module('app',
     'EventService',
     'LoginService',
     'UtilService']
-);
+)
+.controller('MainCtrl', function($scope) {
+
+})
+;
