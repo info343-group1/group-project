@@ -12,7 +12,7 @@ angular.module('app',
 )
 .controller('MainCtrl', function($scope, login) {
 	$scope.user = false;
-	console.log(login.authObj);
+	
 
 })
 ;
