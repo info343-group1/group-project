@@ -1,4 +1,4 @@
-angular.module('LoginService', []).service('Login', ['Util', function($firebaseAuth, $firebaseArray, $firebaseObject) {
+angular.module('LoginService', []).service('Login', ['Util', function($firebaseAuth, $firebaseArray, $firebaseObject, Util) {
 
     var service = {};
 
