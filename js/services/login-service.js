@@ -1,14 +1,13 @@
-angular.module('FirebaseService', []).service('Firebase',["firebase", function($firebaseAuth, $firebaseArray, $firebaseObject) {
-    var ref = new Firebase("https://info343-group1.firebaseio.com/");
+angular.module('LoginService', []).service('Login', ['Util', function($firebaseAuth, $firebaseArray, $firebaseObject) {
 
     var service = {};
 
     // Add item refs
-    var userRef = ref.child("users");
+    var userRef = Util.firebaseRef.child("users");
     service.users = $firebaseObject(userRef);
 
     // Create authorization object that referes to firebase
-    service.authObj = $firebaseAuth(ref);
+    service.authObj = $firebaseAuth(Util.firebaseRef);
 
     // Test if already logged in
     var authData = service.authObj.$getAuth();

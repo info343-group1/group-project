@@ -6,5 +6,6 @@ angular.module('app',
 	'appRoutes',
 	'firebase',
     'EventService',
-    'FirebaseService']
+    'LoginService',
+    'UtilService']
 );
