@@ -1,6 +1,7 @@
 angular.module('app', 
 	['MainCtrl',
 	'EventsCtrl',
+    'ProfileCtrl',
 	'ui.router',
 	'ui.materialize',
 	'appRoutes',

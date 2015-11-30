@@ -1,4 +1,4 @@
-angular.module('LoginService', []).service('Login', ['Util', function($firebaseAuth, $firebaseArray, $firebaseObject) {
+angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebaseArray', '$firebaseObject', 'Util', function($firebaseAuth, $firebaseArray, $firebaseObject, Util) {
 
     var service = {};
 
@@ -37,7 +37,7 @@ angular.module('LoginService', []).service('Login', ['Util', function($firebaseA
     }
 
     // SignUp function
-    serivce.signUp = function() {
+    service.signUp = function() {
         // Create user
         $scope.authObj.$createUser({
             email: $scope.email,

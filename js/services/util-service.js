@@ -1,7 +1,7 @@
 angular.module('UtilService', []).service('Util', [function() {
-	var data = {};
+	var util = {};
 
-	data.firebaseRef = new Firebase("https://info343-group1.firebaseio.com/");
+	util.firebaseRef = new Firebase("https://info343-group1.firebaseio.com/");
 
-	return data;
+	return util;
 }]);
