@@ -1,5 +1,5 @@
 angular.module('app', 
-	['MainCtrl',
+	['HomeCtrl',
 	'EventsCtrl',
     'ProfileCtrl',
 	'ui.router',
@@ -10,7 +10,8 @@ angular.module('app',
     'LoginService',
     'UtilService']
 )
-.controller('MainCtrl', function($scope) {
-
+.controller('MainCtrl', function($scope, login) {
+	$scope.user = false;
+	
 })
 ;
