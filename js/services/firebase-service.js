@@ -1,21 +1,44 @@
 angular.module('FirebaseService', []).service('Firebase',["firebase", function($firebaseAuth, $firebaseArray, $firebaseObject) {
     var ref = new Firebase("https://info343-group1.firebaseio.com/");
 
+    var service = {};
+
     // Add item refs
     var userRef = ref.child("users");
-    $scope.users = $firebaseObject(userRef);
+    service.users = $firebaseObject(userRef);
 
     // Create authorization object that referes to firebase
-    $scope.authObj = $firebaseAuth(ref);
+    service.authObj = $firebaseAuth(ref);
 
     // Test if already logged in
-    var authData = $scope.authObj.$getAuth();
+    var authData = service.authObj.$getAuth();
     if (authData) {
-        $scope.userId = authData.uid;
+        service.userId = authData.uid;
     } 
 
+    // SignIn function
+    service.signIn = function() {
+        $scope.logIn().then(function(authData){
+            $scope.userId = authData.uid;
+        })
+    }
+
+    // LogIn function
+    service.logIn = function() {
+        return $scope.authObj.$authWithPassword({
+            email: $scope.email,
+            password: $scope.password
+        })
+    }
+
+    // LogOut function
+    service.logOut = function() {
+        service.authObj.$unauth()
+        service.userId = false
+    }
+
     // SignUp function
-    $scope.signUp = function() {
+    serivce.signUp = function() {
         // Create user
         $scope.authObj.$createUser({
             email: $scope.email,
@@ -23,12 +46,12 @@ angular.module('FirebaseService', []).service('Firebase',["firebase", function($
         })
 
         // Once the user is created, call the logIn function
-        .then($scope.logIn)
+        .then(service.logIn)
 
         // Once logged in, set and save the user data
         .then(function(authData) {
-            $scope.userId = authData.uid;
-            $scope.users.$save()
+            service.userId = authData.uid;
+            service.users.$save()
         })
 
         // Catch any errors
@@ -37,24 +60,5 @@ angular.module('FirebaseService', []).service('Firebase',["firebase", function($
         });
     }
 
-    // SignIn function
-    $scope.signIn = function() {
-        $scope.logIn().then(function(authData){
-            $scope.userId = authData.uid;
-        })
-    }
-
-    // LogIn function
-    $scope.logIn = function() {
-        return $scope.authObj.$authWithPassword({
-            email: $scope.email,
-            password: $scope.password
-        })
-    }
-
-    // LogOut function
-    $scope.logOut = function() {
-        $scope.authObj.$unauth()
-        $scope.userId = false
-    }
+    return service;
 }]);

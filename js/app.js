@@ -1,11 +1,10 @@
 angular.module('app', 
 	['MainCtrl',
+	'EventsCtrl',
 	'ui.router',
 	'ui.materialize',
 	'appRoutes',
 	'firebase',
     'EventService',
     'FirebaseService']
-
-    
 );
