@@ -1,5 +1,5 @@
 angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, Event) {
-	$scope.results = false;
+	$scope.results = true;
 	$scope.events = Event.events;
 
 	$scope.init = function() {
