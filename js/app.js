@@ -10,9 +10,8 @@ angular.module('app',
     'LoginService',
     'UtilService']
 )
-.controller('MainCtrl', function($scope) {
-	// $scope.user = false;
-	// console.log(login.authObj);
-
+.controller('MainCtrl', function($scope, Login) {
+	$scope.user = false;
+	console.log(Login.authObj);
 })
 ;
