@@ -5,7 +5,7 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, Event
 	$scope.init = function() {
 		console.log($scope.events);
 	}
-
+	
 	$scope.searchQuery = function() {
 		$scope.results = !$scope.results;
 	};
