@@ -1,9 +1,10 @@
-angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, Event) {
+angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, Event, Leaflet) {
 	$scope.results = true;
 	$scope.events = Event.events;
 
 	$scope.init = function() {
 		console.log($scope.events);
+		Leaflet.drawMap();
 	}
 	
 	$scope.searchQuery = function() {

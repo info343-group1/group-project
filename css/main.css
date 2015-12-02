@@ -44,3 +44,12 @@ main {
 .profileInfo{
 	margin-top: 100px;
 }
+
+/*Edit this to change the map size on the event page*/
+.eventMap {
+    height: 500px;
+}
+
+.homeMap {
+    height: 300px;
+}
