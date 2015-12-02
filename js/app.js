@@ -9,9 +9,7 @@ angular.module('app',
     'EventService',
     'LoginService',
     'UtilService']
-)
-.controller('MainCtrl', function($scope, Login) {
+).controller('MainCtrl', function($scope, Login) {
 	$scope.user = false;
 	console.log(Login.authObj);
-})
-;
+});

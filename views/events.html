@@ -23,33 +23,33 @@
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
-				<input id="eventName" type="text" class="validate">
+				<input id="eventName" type="text" class="validate" ng-model="newEventName">
 				<label for="eventName">Event Name</label>
 			</div>
 			<div class="input-field col s12">
-				<input id="eventDate" type="date" class="datepicker">
+				<input id="eventDate" type="date" class="datepicker" ng-model="newEventDate">
 				<label for="eventDate"></label>
                       <!-- Date Picker is a cool option but this is a design
                       choice for the group since there will be two modals
                       stacked on top of each other -->
             </div>
             <div class="input-field col s12">
-            	<input id="eventAddress" type="text" class="validate">
-                  <label for="eventAddress">Event Address</label>
+            	<input id="eventAddress" type="text" class="validate" ng-model="newEventAddress">
+                <label for="eventAddress">Event Address</label>
             </div>
             <div class="input-field col s12">
-            	<input id="eventZip" type="number" class="validate">
-                 <label for="eventZip">Zip Code of Event</label>
+            	<input id="eventZip" type="number" class="validate" ng-model="newEventZip">
+                <label for="eventZip">Zip Code of Event</label>
             </div>
             <div class="input-field col s12">
-            	<textarea id="eventDesc" class="materialize-textarea"></textarea>
-                 <label for="eventDesc">Event Description</label>
+            	<textarea id="eventDesc" class="materialize-textarea" ng-model="newEventDescr"></textarea>
+                <label for="eventDesc">Event Description</label>
              </div>
-             <div class="col s6 left-align">
-                <a class="btn" type="submit">Submit</a>
+             <div class="col s6 right-align">
+                <a class="btn" type="button" ng-click="addEvent()">Submit</a>
             </div>
-            <div class="col s6 right-align">
-                <a class="btn">Cancel</a>
+            <div class="col s6 left-align">
+                <a class="btn modal-action modal-close">Cancel</a>
             </div>
          </div>
      </div> 
