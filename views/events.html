@@ -62,19 +62,19 @@
         autocomplete feature  -->
         <div class="input-field col s12 l6">
             <input id="eventName" type="text" class="validate" ng-model="eventName">
-                <label for="eventName">Search for an Event</label>       
+            <label for="eventName">Search for an Event</label>       
         </div>
         <div class="input-field col s12 l6">
             <input id="eventType" type="text" class="validate" ng-model="eventType">
-                <label for="eventType">Search for Event Type</label>       
+            <label for="eventType">Search for Event Type</label>       
         </div>
         <div class="input-field col s12 l6">
             <input id="eventDate" type="date" class="validate" ng-model="eventDate">
-                <label for="eventDate"></label>                   
+            <label for="eventDate"></label>                  
         </div>
         <div class="input-field col s12 l6">
             <input id="eventDate" type="text" class="validate" ng-model="eventZip">
-                <label for="eventZip">Search for Event Neighboorhood</label>                   
+            <label for="eventZip">Search for Event Neighboorhood</label>                   
         </div>
     </div>
     <!-- Below is a the list of Seattle Neighborhoods with corresponding Zip Code
@@ -108,12 +108,12 @@
             <a class="btn-large center" ng-click="searchQuery()"><i class="material-icons left">search</i>Search</a>
         </div>
     </div>
-    <!-- Not sure if it makes more sense to put search button above or below the map -->
-    <div class="row">
-        <div class="col s12">
-            <img id="searchMap" src="http://images.travelpod.com/cache/accom_maps/Holiday_Inn_Express_Seattle_City_Center_Wa-Seattle.gif"> 
-        </div>
+
+    <div class="row center">
+        <a class="btn-large center" ui-sref="events.map-view">Map</a>
+        <a class="btn-large center" ui-sref="events.tile-view">Tiles</a>
     </div>
+    <div class="row" ui-view></div>
 </div>
 
 <!-- Show Results -->
