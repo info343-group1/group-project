@@ -1,10 +1,15 @@
-angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, Event, Leaflet) {
+angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $state, Event, Leaflet) {
 	$scope.results = true;
 	$scope.events = Event.events;
 
 	$scope.init = function() {
 		console.log($scope.events);
-		Leaflet.drawMap();
+		// $('ul.tabs').tabs();
+		// Leaflet.drawMap();
+	}
+
+	$scope.changeTab = function(uiRoute) {
+		$state.go(uiRoute);
 	}
 	
 	$scope.searchQuery = function() {

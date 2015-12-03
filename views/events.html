@@ -110,8 +110,10 @@
     </div>
 
     <div class="row center">
-        <a class="btn-large center" ui-sref="events.map-view">Map</a>
-        <a class="btn-large center" ui-sref="events.tile-view">Tiles</a>
+        <ul class="tabs s4" tabs>
+            <li class="tab"><a class="active" ng-click="changeTab('events.map-view')">Map</a></li>
+            <li class="tab"><a ng-click="changeTab('events.tile-view')">Tiles</a></li>
+        </ul>
     </div>
     <div class="row" ui-view></div>
 </div>
