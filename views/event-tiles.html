@@ -1,6 +1,9 @@
-<div class='row'>
-	<div ng-repeat="e in events" ng-animate='animate' class="col s4 project-tile fade">
-		<p>{{e.name}}</p>
-		<p>{{e.description}}</p>
-	</div>
+<div ng-repeat="e in events" ng-animate='animate' class="col s12 m6 l4">
+    <div class="project-tile fade">
+        <img class="thumbnail" src="http://www.joomlaworks.net/images/demos/galleries/abstract/7.jpg">
+        <div class="event-info">
+    		<p>{{e.name}}</p>
+    		<p>{{e.description}}</p>
+        </div>
+    </div>
 </div>

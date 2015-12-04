@@ -68,35 +68,3 @@ main {
 a {
   cursor:pointer;
 }
-
-/*Grid CSS*/
-.project-tile {
-  border-radius: 5px;
-  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 1);
-  margin: 20px;
-  padding: 0px;
-  background-color: white;
-}
-
-.flex-div {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.thumbnail {
-  border: none;
-  padding: 0px;
-  border-radius: 5px 5px 0px 0px;
-  overflow: hidden; 
-  margin-bottom: 3%;
-}
-
-.tile-thumbnail {
-  /*border-radius: 5px;*/
-  overflow: hidden; 
-}
