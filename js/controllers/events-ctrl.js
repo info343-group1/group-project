@@ -5,11 +5,15 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 	$scope.init = function() {
 		console.log($scope.events);
 		// $('ul.tabs').tabs();
-		// Leaflet.drawMap();
 	}
 
 	$scope.changeTab = function(uiRoute) {
 		$state.go(uiRoute);
+	}
+
+	// called when event-map is spawned, can be moved elsewhere if needbe
+	$scope.drawMap = function() {
+		Leaflet.drawMap();
 	}
 	
 	$scope.searchQuery = function() {
