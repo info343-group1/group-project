@@ -71,16 +71,14 @@
           <li><a ui-sref="home">Home</a></li>
           <li><a ui-sref="events.map-view">Events</a></li>
           <li><a ng-show="loggedIn" ui-sref="profile">My Profile</a></li>
-          <li><a ng-show="!loggedIn" ng-click="signInPopup()">Sign In</a></li>
-          <li><a ng-show="!loggedIn" ng-click="signUpPopup()">Sign Up</a></li>
+          <li><a ng-show="!loggedIn" ng-click="login()">Login</a></li>
           <li><a ng-show="loggedIn" ng-click="logOut()">LogOut</a></li>
         </ul>
         <ul class="side-nav" id="mobile-nav">
           <li><a ui-sref="home">Home</a></li>
           <li><a ui-sref="events.map-view">Events</a></li>
           <li><a ng-show="loggedIn" ui-sref="profile">My Profile</a></li>
-          <li><a ng-show="!loggedIn" ng-click="signInPopup()">Sign In</a></li>
-          <li><a ng-show="!loggedIn" ng-click="signUpPopup()">Sign Up</a></li>
+          <li><a ng-show="!loggedIn" ng-click="login()">Login</a></li>
           <li><a ng-show="loggedIn" ng-click="logOut()">LogOut</a></li>
         </ul>   
       </div>

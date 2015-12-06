@@ -18,7 +18,8 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
     // SignIn function
     service.signIn = function() {
         console.log('signIn');
-        service.logIn().then(function(authData){
+        service.logIn($('#signInEmail').val(), $('#signInPassword').val())
+        .then(function(authData){
             console.log(authData);
             service.userId = authData.uid;
             vex.close();
@@ -26,13 +27,13 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
     }
 
     // LogIn function
-    service.logIn = function() {
+    service.logIn = function(email, password) {
         console.log('logIn');
         // console.log($('#email').val());
         // console.log($('#password').val());
         return service.authObj.$authWithPassword({
-            email: $('#email').val(),
-            password: $('#password').val()
+            email: email,
+            password: password
         })
     }
 
@@ -46,12 +47,14 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
     service.signUp = function() {
         // Create user
         service.authObj.$createUser({
-            email: $('#email').val(),
-            password: $('#password').val()          
+            email: $('#signUpEmail').val(),
+            password: $('#signUpPassord').val()          
         })
 
         // Once the user is created, call the logIn function
-        .then(service.logIn)
+        .then(function() {
+            return service.logIn($('#signUpEmail').val(), $('#signUpPassord').val())
+        })
 
         // Once logged in, set and save the user data
         .then(function(authData) {
@@ -59,7 +62,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
             return userRef.push({
                 userId: authData.uid,
                 name: $('#name').val(),
-                email: $('#email').val()
+                email: $('#signUpEmail').val()
             });
         })
         .then(function() {
@@ -75,32 +78,26 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
 
     service.popup = function(mode) {
         var loginHtml;
-        var otherAccounts;
-        $.get('./views/' + mode + '.html').then(function(response) {
+        $.get('./views/login.html').then(function(response) {
             loginHtml = $(response);
         })
         .then(function() {
-            loginHtml.find('#' + mode + 'Form').on('submit', function() {
-                service[mode]();
+            loginHtml.find('#signInForm').on('submit', function() {
+                service.signIn();
                 return false;
             });
-        })
-
-        .then(function() {
-            return $.get('./views/otherAccountButtons.html')
-        })
-        .then(function(response) {
-            otherAccounts = $(response);
-        })
-        .then(function() {
-            otherAccounts.find('#facebook').on('click', service.facebook);
-            otherAccounts.find('#twitter').on('click', function() {
+            loginHtml.find('#signUpForm').on('submit', function() {
+                service.signUp();
+                return false;
+            });
+            loginHtml.find('#facebook').on('click', service.facebook);
+            loginHtml.find('#twitter').on('click', function() {
                 console.log('twitter');
             });
-            otherAccounts.find('#google').on('click', function() {
+            loginHtml.find('#google').on('click', function() {
                 console.log('google');
             });
-            otherAccounts.find('#github').on('click', function() {
+            loginHtml.find('#github').on('click', function() {
                 console.log('github');
             });
         })
@@ -108,10 +105,11 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
         .then(function() {
             vex.open({
               afterOpen: function($vexContent) {
-                return $vexContent.append(loginHtml).append(otherAccounts);
+                $vexContent.append(loginHtml);
+                $('ul.tabs').tabs();
               },
               afterClose: function() {
-                return console.log('vexClose');
+                console.log('vexClose');
               }
             });
         });
