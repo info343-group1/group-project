@@ -11,7 +11,22 @@ angular.module('app',
     'UtilService']
 )
 .controller('MainCtrl', function($scope, Login) {
-	$scope.user = false;
+	$scope.loggedIn = Login.authObj.$getAuth() != null;
 	console.log(Login.authObj);
+	console.log(Login.authObj.$getAuth());
+
+	$scope.signInPopup = function() {
+		Login.popup('signIn');
+	}
+
+	$scope.signUpPopup = function() {
+		Login.popup('signUp');
+	}
+
+	$scope.logOut = function() {
+		Login.logOut();
+		$scope.loggedIn = false;
+	}
+
 })
 ;
