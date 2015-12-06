@@ -3,7 +3,7 @@
 <!-- <div class="backgroundImg" style = "background-image: url()">
     <span id="textOverlay">Image Text Overlay</span>
 </div> -->
-<div class="container">
+<div class="container" ng-init="init()">
     <h2 class="center">Header Text</h2>
     <div class="row center">
         <h3 class="col s12">Lorem ipsum dolor sit amet, pellentesque rhoncus, vel malesuada. Per amet a, vulputate et mi, mattis vitae. Bibendum arcu urna, ligula praesent.</h3>
@@ -67,9 +67,7 @@
                     <li>Five</li>
                 </ul>
         </div>
-        <div class="col s12 l6">
-            <image id="mock-map"src="http://images.travelpod.com/cache/accom_maps/Holiday_Inn_Express_Seattle_City_Center_Wa-Seattle.gif"/>
-        </div>
+        <div class="col s12 l6 homeMap" id="map"></div>
     </div>
 </div>
 

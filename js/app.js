@@ -8,7 +8,8 @@ angular.module('app',
 	'firebase',
     'EventService',
     'LoginService',
-    'UtilService']
+    'UtilService',
+    'LeafletService']
 )
 .controller('MainCtrl', function($scope, Login) {
 	$scope.loggedIn = Login.authObj.$getAuth() != null;

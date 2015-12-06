@@ -10,7 +10,15 @@ angular.module('appRoutes', ['ui.router']).config(function($stateProvider, $urlR
 		.state('events', {
 			url:'/events',
 			templateUrl:'./views/events.html',
-			controller:'EventsCtrl'
+			controller:'EventsCtrl',
+			abstract:true
+		})
+		.state('events.tile-view', {
+			templateUrl:'./views/event-tiles.html'
+		})
+		.state('events.map-view', {
+			url:'',
+			templateUrl:'./views/event-map.html'
 		})
 		.state('profile',{
 			url:'/profile',
