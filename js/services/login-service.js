@@ -91,15 +91,9 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
                 return false;
             });
             loginHtml.find('#facebook').on('click', service.facebook);
-            loginHtml.find('#twitter').on('click', function() {
-                console.log('twitter');
-            });
-            loginHtml.find('#google').on('click', function() {
-                console.log('google');
-            });
-            loginHtml.find('#github').on('click', function() {
-                console.log('github');
-            });
+            loginHtml.find('#twitter').on('click', service.twitter);
+            loginHtml.find('#google').on('click', service.google);
+            loginHtml.find('#github').on('click', service.github);
         })
 
         .then(function() {
@@ -126,6 +120,60 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
                 userId: authData.uid,
                 name: authData.facebook.displayName,
                 email: authData.facebook.email
+            });
+        })
+        .then(function() {
+            vex.close();
+        })
+        ;
+    }
+
+    service.twitter = function() {
+        service.authObj.$authWithOAuthPopup("twitter")
+        .then(function(authData) {
+            console.log(authData);
+            service.userId = authData.uid;
+            return userRef.push({
+                userId: authData.uid,
+                name: authData.twitter.displayName
+            });
+        })
+        .then(function() {
+            vex.close();
+        })
+        ;
+    }
+
+    service.google = function() {
+        service.authObj.$authWithOAuthPopup("google", {
+          scope: "email,profile" // the permissions requested
+        })
+        .then(function(authData) {
+            console.log(authData);
+            service.userId = authData.uid;
+            return userRef.push({
+                userId: authData.uid,
+                name: authData.google.displayName,
+                email: authData.google.email
+            });
+        })
+        .then(function() {
+            vex.close();
+        })
+        ;
+    }
+
+    service.github = function() {
+        service.authObj.$authWithOAuthPopup("github", {
+          scope: "user" // the permissions requested
+        })
+        .then(function(authData) {
+            console.log(authData);
+            service.userId = authData.uid;
+            return userRef.push({
+                userId: authData.uid,
+                name: authData.github.displayName,
+                email: authData.github.email
             });
         })
         .then(function() {
