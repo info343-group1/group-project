@@ -3,7 +3,9 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 	$scope.events = Event.events;
 
 	$scope.init = function() {
-		console.log($scope.events);
+		$scope.events.$loaded(function() {
+			$scope.drawMap();
+		});
 	}
 
 	$scope.changeTab = function(uiRoute) {
