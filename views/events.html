@@ -1,5 +1,5 @@
 <!-- Events Page -->
-<div class="container" ng-init='init()'>
+<div class="container">
     <h2 class="center">Header Text</h2>
     <div class="row center">
         <h3 class="col s12">Lorem ipsum dolor sit amet, pellentesque rhoncus, vel malesuada. Per amet a, vulputate et mi, mattis vitae. Bibendum arcu urna, ligula praesent.</h3>
@@ -87,7 +87,7 @@
             <li class="tab"><a class="teal-text" ng-click="changeTab('events.tile-view')">Tiles</a></li>      
         </ul>
     </div>
-    <div class="row" ui-view></div>
+    <div class="row" ng-init="init()" ui-view></div>
 </div>
 
 <!-- Show Results -->
