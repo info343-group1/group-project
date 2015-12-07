@@ -1,10 +1,9 @@
-angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $state, Event, Leaflet) {
+angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $state, Event, Leaflet, LocationService) {
 	$scope.results = true;
 	$scope.events = Event.events;
 
 	$scope.init = function() {
 		console.log($scope.events);
-		// $('ul.tabs').tabs();
 	}
 
 	$scope.changeTab = function(uiRoute) {

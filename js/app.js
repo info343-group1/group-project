@@ -9,7 +9,8 @@ angular.module('app',
     'EventService',
     'LoginService',
     'UtilService',
-    'LeafletService']
+    'LeafletService',
+    'LocationService']
 )
 .controller('MainCtrl', function($scope, Login) {
 	$scope.loggedIn = Login.authObj.$getAuth() != null;
@@ -24,6 +25,4 @@ angular.module('app',
 		Login.logOut();
 		$scope.loggedIn = false;
 	}
-
-})
-;
+});
