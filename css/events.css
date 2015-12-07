@@ -40,3 +40,6 @@
   /*border-radius: 5px;*/
   overflow: hidden; 
 }
+.tabs .indicator{
+  background-color: #4db6ac;
+}
