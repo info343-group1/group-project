@@ -40,3 +40,7 @@
   /*border-radius: 5px;*/
   overflow: hidden; 
 }
+
+.eventMap {
+  min-width: 100%;
+}

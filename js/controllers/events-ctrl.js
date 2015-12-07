@@ -17,22 +17,6 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 	
 	$scope.searchQuery = function() {
 		$scope.results = !$scope.results;
-				
-		// if (eventName) {
-
-		// }
-
-		// if (eventType) {
-
-		// }
-
-		// if (eventDate) {
-
-		// }
-
-		// if (eventZip) {
-
-		// }
 	};
 
 	$scope.addEvent = function() {
