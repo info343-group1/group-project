@@ -10,6 +10,7 @@ angular.module('app',
     'LoginService',
     'UtilService',
     'LeafletService',
+    'TextService',
     'LocationService']
 )
 .controller('MainCtrl', function($scope, Login) {
