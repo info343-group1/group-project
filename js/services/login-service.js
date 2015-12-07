@@ -17,16 +17,23 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
 
     // SignIn function
     service.signIn = function() {
-        $scope.logIn().then(function(authData){
-            $scope.userId = authData.uid;
+        console.log('signIn');
+        service.logIn($('#signInEmail').val(), $('#signInPassword').val())
+        .then(function(authData){
+            console.log(authData);
+            service.userId = authData.uid;
+            vex.close();
         })
     }
 
     // LogIn function
-    service.logIn = function() {
-        return $scope.authObj.$authWithPassword({
-            email: $scope.email,
-            password: $scope.password
+    service.logIn = function(email, password) {
+        console.log('logIn');
+        // console.log($('#email').val());
+        // console.log($('#password').val());
+        return service.authObj.$authWithPassword({
+            email: email,
+            password: password
         })
     }
 
@@ -39,24 +46,140 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
     // SignUp function
     service.signUp = function() {
         // Create user
-        $scope.authObj.$createUser({
-            email: $scope.email,
-            password: $scope.password,          
+        service.authObj.$createUser({
+            email: $('#signUpEmail').val(),
+            password: $('#signUpPassord').val()          
         })
 
         // Once the user is created, call the logIn function
-        .then(service.logIn)
+        .then(function() {
+            return service.logIn($('#signUpEmail').val(), $('#signUpPassord').val())
+        })
 
         // Once logged in, set and save the user data
         .then(function(authData) {
             service.userId = authData.uid;
-            service.users.$save()
+            return userRef.push({
+                userId: authData.uid,
+                name: $('#name').val(),
+                email: $('#signUpEmail').val()
+            });
+        })
+        .then(function() {
+            vex.close();
         })
 
         // Catch any errors
         .catch(function(error) {
             console.error("Error: ", error);
         });
+    }
+
+
+    service.popup = function(mode) {
+        var loginHtml;
+        $.get('./views/login.html').then(function(response) {
+            loginHtml = $(response);
+        })
+        .then(function() {
+            loginHtml.find('#signInForm').on('submit', function() {
+                service.signIn();
+                return false;
+            });
+            loginHtml.find('#signUpForm').on('submit', function() {
+                service.signUp();
+                return false;
+            });
+            loginHtml.find('#facebook').on('click', service.facebook);
+            loginHtml.find('#twitter').on('click', service.twitter);
+            loginHtml.find('#google').on('click', service.google);
+            loginHtml.find('#github').on('click', service.github);
+        })
+
+        .then(function() {
+            vex.open({
+              afterOpen: function($vexContent) {
+                $vexContent.append(loginHtml);
+                $('ul.tabs').tabs();
+              },
+              afterClose: function() {
+                console.log('vexClose');
+              }
+            });
+        });
+    }
+
+    service.facebook = function() {
+        service.authObj.$authWithOAuthPopup("facebook", {
+          scope: "email,user_likes" // the permissions requested
+        })
+        .then(function(authData) {
+            console.log(authData);
+            service.userId = authData.uid;
+            return userRef.push({
+                userId: authData.uid,
+                name: authData.facebook.displayName,
+                email: authData.facebook.email
+            });
+        })
+        .then(function() {
+            vex.close();
+        })
+        ;
+    }
+
+    service.twitter = function() {
+        service.authObj.$authWithOAuthPopup("twitter")
+        .then(function(authData) {
+            console.log(authData);
+            service.userId = authData.uid;
+            return userRef.push({
+                userId: authData.uid,
+                name: authData.twitter.displayName
+            });
+        })
+        .then(function() {
+            vex.close();
+        })
+        ;
+    }
+
+    service.google = function() {
+        service.authObj.$authWithOAuthPopup("google", {
+          scope: "email,profile" // the permissions requested
+        })
+        .then(function(authData) {
+            console.log(authData);
+            service.userId = authData.uid;
+            return userRef.push({
+                userId: authData.uid,
+                name: authData.google.displayName,
+                email: authData.google.email
+            });
+        })
+        .then(function() {
+            vex.close();
+        })
+        ;
+    }
+
+    service.github = function() {
+        service.authObj.$authWithOAuthPopup("github", {
+          scope: "user" // the permissions requested
+        })
+        .then(function(authData) {
+            console.log(authData);
+            service.userId = authData.uid;
+            return userRef.push({
+                userId: authData.uid,
+                name: authData.github.displayName,
+                email: authData.github.email
+            });
+        })
+        .then(function() {
+            vex.close();
+        })
+        ;
     }
 
     return service;

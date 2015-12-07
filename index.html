@@ -10,6 +10,9 @@
   <!-- Google Icon Font -->
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
   <!-- jQuery Libraries -->
   <script src="https://code.jquery.com/jquery.js"></script>
 
@@ -67,12 +70,16 @@
         <ul class="right hide-on-med-and-down">
           <li><a ui-sref="home">Home</a></li>
           <li><a ui-sref="events.map-view">Events</a></li>
-          <li><a ui-sref="profile">My Profile</a></li>
+          <li><a ng-show="loggedIn" ui-sref="profile">My Profile</a></li>
+          <li><a ng-show="!loggedIn" ng-click="login()">Login</a></li>
+          <li><a ng-show="loggedIn" ng-click="logOut()">LogOut</a></li>
         </ul>
         <ul class="side-nav" id="mobile-nav">
           <li><a ui-sref="home">Home</a></li>
           <li><a ui-sref="events.map-view">Events</a></li>
-          <li><a ui-sref="profile">My Profile</a></li>
+          <li><a ng-show="loggedIn" ui-sref="profile">My Profile</a></li>
+          <li><a ng-show="!loggedIn" ng-click="login()">Login</a></li>
+          <li><a ng-show="loggedIn" ng-click="logOut()">LogOut</a></li>
         </ul>   
       </div>
     </nav>
