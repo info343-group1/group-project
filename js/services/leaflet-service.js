@@ -2,10 +2,17 @@ angular.module('LeafletService', []).service('Leaflet', ['$firebaseObject', '$fi
     var leafletService = {};
     var map;
     leafletService.drawMap = function() {
-        map = L.map('map').setView([38.617, -92.284], 4);
-        var layer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
-        layer.addTo(map);
-        leafletService.customMap(Event.events);
+        LocationService.getUserLocation(function(pos) {
+        	console.log(pos)
+        	if (pos != null) {
+        		map = L.map('map').setView([pos.coords.latitude, pos.coords.longitude], 8);
+        	} else {
+        		map = L.map('map').setView([38.617, -92.284], 4);
+        	}
+        	var layer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
+        	layer.addTo(map);
+        	leafletService.customMap(Event.events);	
+        })   
     }
 
     leafletService.customMap = function(data) {
