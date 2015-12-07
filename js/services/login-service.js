@@ -23,7 +23,8 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
             console.log(authData);
             service.userId = authData.uid;
             vex.close();
-        })
+            location.reload();
+        });
     }
 
     // LogIn function
@@ -34,13 +35,14 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
         return service.authObj.$authWithPassword({
             email: email,
             password: password
-        })
+        });
     }
 
     // LogOut function
     service.logOut = function() {
-        service.authObj.$unauth()
-        service.userId = false
+        service.authObj.$unauth();
+        service.userId = false;
+        location.reload();
     }
 
     // SignUp function
@@ -68,7 +70,6 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
         .then(function() {
             vex.close();
         })
-
         // Catch any errors
         .catch(function(error) {
             console.error("Error: ", error);
@@ -124,8 +125,8 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
         })
         .then(function() {
             vex.close();
-        })
-        ;
+            location.reload();
+        });
     }
 
     service.twitter = function() {
@@ -140,8 +141,8 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
         })
         .then(function() {
             vex.close();
-        })
-        ;
+            location.reload();
+        });
     }
 
     service.google = function() {
@@ -159,8 +160,8 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
         })
         .then(function() {
             vex.close();
-        })
-        ;
+            location.reload();
+        });
     }
 
     service.github = function() {
@@ -178,8 +179,8 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
         })
         .then(function() {
             vex.close();
-        })
-        ;
+            location.reload();
+        });
     }
 
     return service;

@@ -29,9 +29,6 @@
 			<div class="input-field col s12">
 				<input id="eventDate" type="date" class="datepicker" ng-model="newEventDate">
 				<label for="eventDate"></label>
-                      <!-- Date Picker is a cool option but this is a design
-                      choice for the group since there will be two modals
-                      stacked on top of each other -->
             </div>
             <div class="input-field col s12">
             	<input id="eventAddress" type="text" class="validate" ng-model="newEventAddress">
@@ -77,32 +74,7 @@
             <label for="eventZip">Search for Event Neighboorhood</label>                   
         </div>
     </div>
-    <!-- Below is a the list of Seattle Neighborhoods with corresponding Zip Code
-    1. 98177 North Seattle
-    2. 98133 Haller Lake / Northgate
-    3. 98125 Northgate / Lake City 
-    4. 98117 Greenwood / Phinney Ridge
-    5. 98103 Greenlake / Freemont
-    6. 98115 Wedgewood / Maple Leaf / Sand Point
-    7. 98107 Ballard
-    8. 98105 University District
-    9. 98199 Magnolia
-    10. 98119 Queen Anne
-    11. 98109 South Lake Union 
-    12. 98102 Capitol Hill
-    13. 98122 Centeral District / Madison 
-    14. 98121 Belltown
-    15. 98101 Downtown
-    16. 98122 Capitoll Hill / Central District / Madrona
-    17. 98104 International District / Pionneer Square 
-    18. 98134 SoDo
-    19. 98144  Atlantic / North Beacon Hill 
-    20. 98116 West Seattle
-    21. 9126 West Seattle 
-    22. 98136 South Park
-    23. 98106 Delridge
-    24. 98108 Beacon Hill / Georgetown
-    26. 98118 Columbia City / Rainer Valley -->
+    
     <div class="row center">
         <div class="col s12">
             <a class="btn-large center" ng-click="searchQuery()"><i class="material-icons left">search</i>Search</a>
