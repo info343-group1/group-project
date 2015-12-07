@@ -1,4 +1,4 @@
-angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $state, Event, Leaflet, LocationService, TextService) {
+angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $state, Event, Leaflet, LocationService, PageData) {
 	$scope.results = true;
 	$scope.events = Event.events;
 
