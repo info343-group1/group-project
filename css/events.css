@@ -40,6 +40,11 @@
   /*border-radius: 5px;*/
   overflow: hidden; 
 }
+
+.eventMap {
+  min-width: 100%;
+}
+
 .tabs .indicator{
   background-color: #4db6ac;
 }
