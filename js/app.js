@@ -24,6 +24,5 @@ angular.module('app',
 
 	$scope.logOut = function() {
 		Login.logOut();
-		$scope.loggedIn = false;
 	}
 });
