@@ -12,8 +12,8 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
  
 
     // SignIn function
-    service.signIn = function() {
-        service.logIn($('#signInEmail').val(), $('#signInPassword').val())
+    var signIn = function() {
+        logIn($('#signInEmail').val(), $('#signInPassword').val())
         .then(function(authData){
             setUserObject();
             vex.close();
@@ -22,7 +22,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
     }
 
     // LogIn function
-    service.logIn = function(email, password) {
+    var logIn = function(email, password) {
         return service.authObj.$authWithPassword({
             email: email,
             password: password
@@ -37,7 +37,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
     }
 
     // SignUp function
-    service.signUp = function() {
+    var signUp = function() {
         // Create user
         service.authObj.$createUser({
             email: $('#signUpEmail').val(),
@@ -46,16 +46,18 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
 
         // Once the user is created, call the logIn function
         .then(function() {
-            return service.logIn($('#signUpEmail').val(), $('#signUpPassord').val())
+            return logIn($('#signUpEmail').val(), $('#signUpPassord').val())
         })
 
         // Once logged in, set and save the user data
         .then(function(authData) {
-            return userRef.push({
+            var promise = $.Deferred()
+            userRef.push({
                 userId: authData.uid,
                 name: $('#name').val(),
                 email: $('#signUpEmail').val()
-            });
+            }, promise.resolve);
+            return promise
         })
         .then(function() {
             setUserObject();
@@ -75,11 +77,11 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
         })
         .then(function() {
             loginHtml.find('#signInForm').on('submit', function() {
-                service.signIn();
+                signIn();
                 return false;
             });
             loginHtml.find('#signUpForm').on('submit', function() {
-                service.signUp();
+                signUp();
                 return false;
             });
             loginHtml.find('#facebook').on('click', function() {
@@ -101,9 +103,6 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
               afterOpen: function($vexContent) {
                 $vexContent.append(loginHtml);
                 $('ul.tabs').tabs();
-              },
-              afterClose: function() {
-                console.log('vexClose');
               }
             });
         });
@@ -128,9 +127,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
                         userId: authData.uid,
                         name: authData[provider].displayName || '',
                         email: authData[provider].email || ''
-                    }, function() {
-                         promise.resolve();
-                    });
+                    }, promise.resolve);
                 } else {
                      promise.resolve();
                 }
@@ -157,16 +154,15 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
 
         userRef.orderByChild("userId").equalTo(authData.uid).once("value", function(user) {
             service.user = user.val()[first(user.val())];
-            console.log(service.user);
             promise.resolve();
         });
+
         return promise;
     }
 
     service.loggedIn = function(obj) {
         if (service.authObj.$getAuth() != null && obj.yes) {
             if (service.user == null) {
-                // console.log(setUserObject());
                 setUserObject().then(obj.yes);
             } else{
                 obj.yes();
@@ -179,7 +175,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
     }
 
     // Test if already logged in
-    service.loggedIn({});
+    // service.loggedIn({});
 
     return service;
 }]);

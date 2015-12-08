@@ -3,7 +3,7 @@ angular.module('ProfileCtrl', []).controller('ProfileCtrl', function($scope, Log
 
 
 	// ALEX Please convert this in to the new format
-	
+
 	// // default firebase images are too small
 	// var firebaseImg = "https://secure.gravatar.com/avatar/"
 
