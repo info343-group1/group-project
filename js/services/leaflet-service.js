@@ -27,6 +27,7 @@ angular.module('LeafletService', []).service('Leaflet', ['$firebaseObject', '$fi
 				var circle = new L.circleMarker([res.lat, res.lng], options);
 				circle.setRadius(5);
 				circle.addTo(events);
+				circle.bindPopup("<b>" + item.name +"</b><br>" + item.address + "<br>" + item.description);
 			});
 	    		
     	});
