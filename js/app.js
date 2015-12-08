@@ -12,10 +12,15 @@ angular.module('app',
     'LeafletService',
     'LocationService']
 )
-.controller('MainCtrl', function($scope, Login) {
+.controller('MainCtrl', function($scope, Login, LocationService) {
 	$scope.loggedIn = Login.authObj.$getAuth() != null;
-	console.log(Login.authObj);
-	console.log(Login.authObj.$getAuth());
+
+	$scope.init = function() {
+		// Get user's location
+		LocationService.getUserLocation(function(position) {
+			console.log(position);
+		});
+	}
 
 	$scope.login = function() {
 		Login.popup('signIn');

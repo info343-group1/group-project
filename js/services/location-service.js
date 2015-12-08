@@ -3,7 +3,6 @@ angular.module('LocationService', []).service('LocationService', ['$http', 'Util
 
 	var gmapsKey = 'AIzaSyAIh_YwZhxDikDlI5-T8fUYbSQ8n2rJzyU';
 	var searchURL = 'https://maps.googleapis.com/maps/api/geocode/json?key='+ gmapsKey + '&address=';
-
 	/**
 	 * Takes an address search string and calls a passed function with the latitude and
 	 * longitude of the given address passed as a parameter
@@ -30,6 +29,7 @@ angular.module('LocationService', []).service('LocationService', ['$http', 'Util
 		if (navigator.geolocation) {
 		    navigator.geolocation.getCurrentPosition(function(position) {
 		    	callback(position);
+		    	service.userLocation = position;
 		    });
 		}
 	}
