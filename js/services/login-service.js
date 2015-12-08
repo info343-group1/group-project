@@ -77,7 +77,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
     }
 
 
-    service.popup = function(mode) {
+    service.popup = function() {
         var loginHtml;
         $.get('./views/login.html').then(function(response) {
             loginHtml = $(response);
@@ -130,12 +130,15 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
           scope: permissions[provider] // the permissions requested
         })
         .then(function(authData) {
-            console.log(authData);
-            service.userId = authData.uid;
-            return userRef.push({
-                userId: authData.uid,
-                name: authData[provider].displayName || '',
-                email: authData[provider].email || ''
+            userRef.orderByChild("userId").equalTo(authData.uid).once("value", function(user) {
+                service.userId = authData.uid;
+                if (!user.val()) {
+                    userRef.push({
+                        userId: authData.uid,
+                        name: authData[provider].displayName || '',
+                        email: authData[provider].email || ''
+                    });
+                };
             });
         })
         .then(function() {

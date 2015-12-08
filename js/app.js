@@ -19,7 +19,7 @@ angular.module('app',
 	console.log(Login.authObj.$getAuth());
 
 	$scope.login = function() {
-		Login.popup('signIn');
+		Login.popup();
 	}
 
 	$scope.logOut = function() {
