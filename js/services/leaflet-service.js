@@ -9,7 +9,7 @@ angular.module('LeafletService', []).service('Leaflet', ['$firebaseObject', '$fi
                 leafletService.map.remove();
             }
             if (pos != null) {
-                view = {coordinates: [pos.coords.latitude, pos.coords.longitude], zoom: 8}
+                view = {coordinates: [pos.coords.latitude, pos.coords.longitude], zoom: 8};
             } 
             leafletService.map = L.map('map').setView(view.coordinates, view.zoom);
             var layer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
@@ -21,13 +21,16 @@ angular.module('LeafletService', []).service('Leaflet', ['$firebaseObject', '$fi
     leafletService.customMap = function(data) {
     	var events = new L.LayerGroup([]);
     	var options = {fillColor: "#00007f", color: "#00007f", fillOpacity: ".8"};
+    	var markIcon = L.icon({
+	       iconUrl: './assets/icons/pin65.svg',
+	       iconSize: [20, 40]
+    	});
     	data.map(function(item) {
 			LocationService.getLatLong(item.address, function(res) {
 				res = res.results[0].geometry.location;
-				var circle = new L.circleMarker([res.lat, res.lng], options);
-				circle.setRadius(5);
-				circle.addTo(events);
-				circle.bindPopup("<b>" + item.name +"</b><br>" + item.address + "<br>" + item.description);
+				var marker = new L.marker([res.lat, res.lng], {icon: markIcon});
+				marker.addTo(events);
+				marker.bindPopup("<b>" + item.name +"</b><br>" + item.address + "<br>" + item.description);
 			});
 	    		
     	});
