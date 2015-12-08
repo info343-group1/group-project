@@ -10,6 +10,7 @@ angular.module('app',
     'LoginService',
     'UtilService',
     'LeafletService',
+    'TextService',
     'LocationService']
 )
 .controller('MainCtrl', function($scope, Login, LocationService) {
@@ -23,11 +24,10 @@ angular.module('app',
 	}
 
 	$scope.login = function() {
-		Login.popup('signIn');
+		Login.popup();
 	}
 
 	$scope.logOut = function() {
 		Login.logOut();
-		$scope.loggedIn = false;
 	}
 });

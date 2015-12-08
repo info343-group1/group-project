@@ -77,7 +77,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
     }
 
 
-    service.popup = function(mode) {
+    service.popup = function() {
         var loginHtml;
         $.get('./views/login.html').then(function(response) {
             loginHtml = $(response);
@@ -91,10 +91,18 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
                 service.signUp();
                 return false;
             });
-            loginHtml.find('#facebook').on('click', service.facebook);
-            loginHtml.find('#twitter').on('click', service.twitter);
-            loginHtml.find('#google').on('click', service.google);
-            loginHtml.find('#github').on('click', service.github);
+            loginHtml.find('#facebook').on('click', function() {
+                logginProvider('facebook');
+            });
+            loginHtml.find('#twitter').on('click', function() {
+                logginProvider('twitter');
+            });
+            loginHtml.find('#google').on('click', function() {
+                logginProvider('google');
+            });
+            loginHtml.find('#github').on('click', function() {
+                logginProvider('github');
+            });
         })
 
         .then(function() {
@@ -110,71 +118,27 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
         });
     }
 
-    service.facebook = function() {
-        service.authObj.$authWithOAuthPopup("facebook", {
-          scope: "email,user_likes" // the permissions requested
-        })
-        .then(function(authData) {
-            console.log(authData);
-            service.userId = authData.uid;
-            return userRef.push({
-                userId: authData.uid,
-                name: authData.facebook.displayName,
-                email: authData.facebook.email
-            });
-        })
-        .then(function() {
-            vex.close();
-            location.reload();
-        });
-    }
+    permissions = {
+        facebook: "email,user_likes",
+        twitter: "",
+        google: "email,profile",
+        github: "user"
+    };
 
-    service.twitter = function() {
-        service.authObj.$authWithOAuthPopup("twitter")
-        .then(function(authData) {
-            console.log(authData);
-            service.userId = authData.uid;
-            return userRef.push({
-                userId: authData.uid,
-                name: authData.twitter.displayName
-            });
-        })
-        .then(function() {
-            vex.close();
-            location.reload();
-        });
-    }
-
-    service.google = function() {
-        service.authObj.$authWithOAuthPopup("google", {
-          scope: "email,profile" // the permissions requested
+    var logginProvider = function(provider) {
+        service.authObj.$authWithOAuthPopup(provider, {
+          scope: permissions[provider] // the permissions requested
         })
         .then(function(authData) {
-            console.log(authData);
-            service.userId = authData.uid;
-            return userRef.push({
-                userId: authData.uid,
-                name: authData.google.displayName,
-                email: authData.google.email
-            });
-        })
-        .then(function() {
-            vex.close();
-            location.reload();
-        });
-    }
-
-    service.github = function() {
-        service.authObj.$authWithOAuthPopup("github", {
-          scope: "user" // the permissions requested
-        })
-        .then(function(authData) {
-            console.log(authData);
-            service.userId = authData.uid;
-            return userRef.push({
-                userId: authData.uid,
-                name: authData.github.displayName,
-                email: authData.github.email
+            userRef.orderByChild("userId").equalTo(authData.uid).once("value", function(user) {
+                service.userId = authData.uid;
+                if (!user.val()) {
+                    userRef.push({
+                        userId: authData.uid,
+                        name: authData[provider].displayName || '',
+                        email: authData[provider].email || ''
+                    });
+                };
             });
         })
         .then(function() {

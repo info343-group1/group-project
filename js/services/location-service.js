@@ -29,7 +29,8 @@ angular.module('LocationService', []).service('LocationService', ['$http', 'Util
 		if (navigator.geolocation) {
 		    navigator.geolocation.getCurrentPosition(function(position) {
 		    	callback(position);
-		    	service.userLocation = position;
+		    }, function(error) {
+		    	callback(null);
 		    });
 		}
 	}
