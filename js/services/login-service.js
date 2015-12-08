@@ -4,24 +4,18 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
 
     // Add item refs
     var userRef = Util.firebaseRef.child("users");
-    service.users = $firebaseObject(userRef);
+
+    service.user = null;
 
     // Create authorization object that referes to firebase
     service.authObj = $firebaseAuth(Util.firebaseRef);
-
-    // Test if already logged in
-    var authData = service.authObj.$getAuth();
-    if (authData) {
-        service.userId = authData.uid;
-    } 
+ 
 
     // SignIn function
     service.signIn = function() {
-        console.log('signIn');
         service.logIn($('#signInEmail').val(), $('#signInPassword').val())
         .then(function(authData){
-            console.log(authData);
-            service.userId = authData.uid;
+            setUserObject();
             vex.close();
             location.reload();
         });
@@ -29,9 +23,6 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
 
     // LogIn function
     service.logIn = function(email, password) {
-        console.log('logIn');
-        // console.log($('#email').val());
-        // console.log($('#password').val());
         return service.authObj.$authWithPassword({
             email: email,
             password: password
@@ -60,7 +51,6 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
 
         // Once logged in, set and save the user data
         .then(function(authData) {
-            service.userId = authData.uid;
             return userRef.push({
                 userId: authData.uid,
                 name: $('#name').val(),
@@ -68,6 +58,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
             });
         })
         .then(function() {
+            setUserObject();
             vex.close();
         })
         // Catch any errors
@@ -130,22 +121,65 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
           scope: permissions[provider] // the permissions requested
         })
         .then(function(authData) {
+            var promise = $.Deferred();
             userRef.orderByChild("userId").equalTo(authData.uid).once("value", function(user) {
-                service.userId = authData.uid;
                 if (!user.val()) {
                     userRef.push({
                         userId: authData.uid,
                         name: authData[provider].displayName || '',
                         email: authData[provider].email || ''
+                    }, function() {
+                         promise.resolve();
                     });
-                };
+                } else {
+                     promise.resolve();
+                }
             });
+            return promise;
         })
+        .then(service.setUserObject)
         .then(function() {
             vex.close();
             location.reload();
         });
     }
+
+    var setUserObject = function() {
+
+        var first = function(obj) {
+            for (var a in obj) return a;
+        }
+
+        var authData = service.authObj.$getAuth();
+        service.userId = authData.uid;
+
+        var promise = $.Deferred();
+
+        userRef.orderByChild("userId").equalTo(authData.uid).once("value", function(user) {
+            service.user = user.val()[first(user.val())];
+            console.log(service.user);
+            promise.resolve();
+        });
+        return promise;
+    }
+
+    service.loggedIn = function(obj) {
+        if (service.authObj.$getAuth() != null && obj.yes) {
+            if (service.user == null) {
+                // console.log(setUserObject());
+                setUserObject().then(obj.yes);
+            } else{
+                obj.yes();
+            };
+        } else{
+            if (obj.no) {
+                obj.no();
+            };
+        };
+    }
+
+    // Test if already logged in
+    service.loggedIn({});
 
     return service;
 }]);

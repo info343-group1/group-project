@@ -14,9 +14,16 @@ angular.module('app',
     'LocationService']
 )
 .controller('MainCtrl', function($scope, Login) {
-	$scope.loggedIn = Login.authObj.$getAuth() != null;
-	console.log(Login.authObj);
-	console.log(Login.authObj.$getAuth());
+	$scope.loggedIn = false;
+
+	Login.loggedIn({
+		yes: function() {
+			$scope.loggedIn = true;
+		}, no: function() {
+			$scope.loggedIn = false;
+		}
+	});
+	
 
 	$scope.login = function() {
 		Login.popup();
