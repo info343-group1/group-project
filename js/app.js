@@ -16,6 +16,13 @@ angular.module('app',
 .controller('MainCtrl', function($scope, Login) {
 	$scope.loggedIn = false;
 
+	$scope.init = function() {
+		// Get user's location
+		LocationService.getUserLocation(function(position) {
+			console.log(position);
+		});
+	}
+
 	Login.loggedIn({
 		yes: function() {
 			$scope.loggedIn = true;
@@ -24,7 +31,6 @@ angular.module('app',
 		}
 	});
 	
-
 	$scope.login = function() {
 		Login.popup();
 	}
