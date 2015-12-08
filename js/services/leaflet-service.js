@@ -20,7 +20,7 @@ angular.module('LeafletService', []).service('Leaflet', ['$firebaseObject', '$fi
 
     leafletService.customMap = function(data) {
     	var events = new L.LayerGroup([]);
-    	var options = {fillColor: "#c62104", color: "#c62104", fillOpacity: ".5"};
+    	var options = {fillColor: "#00007f", color: "#00007f", fillOpacity: ".8"};
     	data.map(function(item) {
 			LocationService.getLatLong(item.address, function(res) {
 				res = res.results[0].geometry.location;
