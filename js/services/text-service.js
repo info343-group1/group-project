@@ -2,6 +2,8 @@ angular.module('TextService', []).service('PageData', ['$firebaseObject', '$fire
     var textServ= {};
     var textRef = Util.firebaseRef.child('page_data');
 
+    console.log('Page Data')
+
 
 
     return textServ;
