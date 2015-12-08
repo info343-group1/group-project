@@ -1,12 +1,14 @@
-angular.module('TextService', []).service('PageData', ['$firebaseObject', '$firebaseArray', 'Util', function($firebaseObject, $firebaseArray, Util) {
-    var textServ= {};
+angular.module('TextService', []).service('PageData', ['$firebaseObject', '$firebaseArray', 'Util', function($scope, $firebaseObject, $firebaseArray, Util) {
+    var data= {};
     var textRef = Util.firebaseRef.child('page_data');
 
-    console.log('Page Data')
+    $scope.copy = data.page_data = $firebaseArray(textRef);
+    console.log(data.page_data);
 
 
 
-    return textServ;
+
+    return data;
 }]);
 
 // Init to load the page data
