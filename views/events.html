@@ -10,18 +10,6 @@
 <div id="createModal" class="modal" >
 	<div class="container">
 		<div class="row">
-			<div class="col s4 l6">
-				<img src="https://upload.wikimedia.org/wikipedia/commons/7/77/SpaceNeedleTopClose.jpg" class="circle responsive-img">
-			</div>
-			<div class="col s8 l6">
-                <ul>
-				    <li><h5>Account Name</h5></li>
-				    <li><h5>Account Info</h5></li>
-				    <li><h5>Account Info</h5></li>
-                </ul>
-			</div>
-		</div>
-		<div class="row">
 			<div class="input-field col s12">
 				<input id="eventName" type="text" class="validate" ng-model="newEventName">
 				<label for="eventName">Event Name</label>
@@ -59,25 +47,7 @@
         autocomplete feature  -->
         <div class="input-field col s12 l6">
             <input id="eventName" type="text" class="validate" ng-model="eventName">
-            <label for="eventName">Search for an Event</label>       
-        </div>
-        <div class="input-field col s12 l6">
-            <input id="eventType" type="text" class="validate" ng-model="eventType">
-            <label for="eventType">Search for Event Type</label>       
-        </div>
-        <div class="input-field col s12 l6">
-            <input id="eventDate" type="date" class="validate" ng-model="eventDate">
-            <label for="eventDate"></label>                  
-        </div>
-        <div class="input-field col s12 l6">
-            <input id="eventDate" type="text" class="validate" ng-model="eventZip">
-            <label for="eventZip">Search for Event Neighboorhood</label>                   
-        </div>
-    </div>
-    
-    <div class="row center">
-        <div class="col s12">
-            <a class="btn-large center" ng-click="searchQuery()"><i class="material-icons left">search</i>Search</a>
+            <label for="eventName">Search Events</label>       
         </div>
     </div>
 
@@ -90,37 +60,6 @@
     <div class="row" ng-init="init()" ui-view></div>
 </div>
 
-<!-- Show Results -->
-<div class="container eventResults" ng-hide="results">
-    <table class= "responsive-table">
-        <thead>
-            <tr>
-                <td>
-                    <a href='#' ng-click= "sortType='eventName'">Event Name</a>
-                </td>
-                <td>
-                    <a href='#' ng-click= "sortType='eventZip'">Event Neighborhood</a>
-                </td>                
-                <td>
-                    <a href='#' ng-click= "sortType='eventType'">Event Type</a>
-                </td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr> <!-- ng-repeat="ele in data | orederBy:sortType| filter:{eventName,eventZip,eventType}" -->
-                <td>
-                    <a href='#eventModal'>{{ele.Name}}</a>
-                </td>
-                <td>
-                    <a href='#eventModal'>{{ele.Zip}}</a>
-                </td>
-                <td>
-                    <a href='#eventModal'>{{ele.Type}}</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
 <!-- Event Modal -->
 <div id="eventModal" class="modal">
     <div class="container">
