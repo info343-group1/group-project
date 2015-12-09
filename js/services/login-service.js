@@ -9,7 +9,6 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
 
     // Create authorization object that referes to firebase
     var authObj = $firebaseAuth(Util.firebaseRef);
- 
 
     // SignIn function
     var signIn = function() {
@@ -78,6 +77,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
 
 
     service.popup = function() {
+        vex.close();
         var loginHtml;
         $.get('./views/login.html').then(function(response) {
             loginHtml = $(response);

@@ -4,14 +4,14 @@
 </div>
 <div class="container"> -->
 <div class="container">
-    <h2 class="center" ng-show="loggedIn">Your Profile</h2>
+    <h2 class="center" ng-show="ready && loggedIn">Your Profile</h2>
     
-    <div class="row center" ng-show="!loggedIn">
+    <div class="row center" ng-show=" ready && !loggedIn">
         <h3 class="col s12">You must be signed in to view your profile page</h3>
     </div>
 </div>   
 
-<div class="container" ng-show="loggedIn">
+<div class="container" ng-show="ready && loggedIn">
 	<div class="row profileInfo">
 		<div class="col s4">
 			<img src="{{image}}" class="circle responsive-img">
