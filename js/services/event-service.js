@@ -20,7 +20,7 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 				Login.user.eventsCreated = [id];
 			}
 			console.log(Login.user);
-			Login.user.firebase.child('events').push(id);
+			Login.user.firebase.child('createdEvents').push(id);
 		});
 	}
 
