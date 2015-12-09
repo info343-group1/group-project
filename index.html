@@ -63,8 +63,9 @@
   <link rel="stylesheet" type="text/css" href="./css/events.css" media="screen,projection">
 
 </head>
-<!-- Navbar -->
 <body ng-app="app" ng-controller="MainCtrl" ng-init="init()">
+
+  <!-- Navbar -->
   <header class="navbar-static">
     <nav class="teal lighten-1">
       <div class="nav-wrapper container">
@@ -89,18 +90,25 @@
   </header>
 
   <main ui-view></main>
-<!-- Footer -->
+
+  <!-- Footer -->
   <footer class="page-footer teal lighten-1">
     <div class="container center-align">
       <div class="row">
-        <div class="col s4">
+        <div class="col" ng-class="loggedIn ? 's3' : 's4'">
           <a class="grey-text text-lighten-3" ui-sref="home">Home</a>
         </div>
-        <div class="col s4">  
+        <div class="col" ng-class="loggedIn ? 's3' : 's4'">  
           <a class="grey-text text-lighten-3" ui-sref="events.map-view">Events</a>
         </div>
-        <div class="col s4">
+        <div class="col" ng-class="loggedIn ? 's3' : 's4'" ng-show="loggedIn">
           <a class="grey-text text-lighten-3" ui-sref="profile">My Profile</a>
+        </div>
+        <div class="col" ng-class="loggedIn ? 's3' : 's4'" ng-show="loggedIn">
+          <a class="grey-text text-lighten-3" ui-sref="profile" ng-click="logOut()">LogOut</a>
+        </div>
+        <div class="col" ng-class="loggedIn ? 's3' : 's4'" ng-show="!loggedIn">
+          <a class="grey-text text-lighten-3" ui-sref="profile" ng-click="login()">Login</a>
         </div>
       </div>
     </div>
@@ -109,5 +117,6 @@
         <p>Copyright 2015 info343-group1</p> 
       </div>
   </footer>
+  
 </body>
 </html>
