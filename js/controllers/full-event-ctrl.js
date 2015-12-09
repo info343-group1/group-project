@@ -16,8 +16,11 @@ angular.module('FullEventCtrl', []).controller('FullEventCtrl', function($scope,
 	            no: Login.popup,
 	            yes: function() {
 	                var commentData = {
-	                	"content": $scope.newComment,
-	                	"owner": Login.user
+	                	content: $scope.newComment,
+	                	owner: {
+	                		name: Login.user.name,
+	                		userId: Login.user.userId
+	                	}
 	                };
 	                $scope.comments.$add(commentData).then(function(ref) {
 	                	var id = ref.key();
