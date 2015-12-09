@@ -8,10 +8,11 @@
 </div>
 <!-- Create Modal -->
 <div id="createModal" class="modal" >
-	<div class="container">
+	<form name="createModal">
+    <div class="container">
 		<div class="row">
 			<div class="input-field col s12">
-				<input id="eventName" type="text" class="validate" ng-model="newEventName">
+				<input id="eventName" type="text" class="validate" ng-model="newEventName" name="eventName"required>
 				<label for="eventName">Event Name</label>
 			</div>
 			<div class="input-field col s12">
@@ -23,8 +24,14 @@
                 <label for="eventAddress">Event Address</label>
             </div>
             <div class="input-field col s12">
-            	<input id="eventZip" type="number" class="validate" ng-model="newEventZip">
+            	<input id="eventZip" type="number" class="validate" ng-model="newEventZip" name="eventZip"ng-minlength="5" ng-maxlength="5">
                 <label for="eventZip">Zip Code of Event</label>
+                <div role="alert">
+                  <span class="error" ng-show="createModal.eventZip.$error.minlength">
+                    Not a valid zip code</span>
+                  <span class="error" ng-show="createModal.eventZip.$error.maxlength">
+                    Not a valid zip code</span>
+                </div>
             </div>
             <div class="input-field col s12">
             	<textarea id="eventDesc" class="materialize-textarea" ng-model="newEventDescr"></textarea>
@@ -41,6 +48,7 @@
             </div>
          </div>
      </div> 
+     </form>
 </div>
 <!-- End of Create Modal -->
 

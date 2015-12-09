@@ -10,17 +10,24 @@
                 <textarea ng-model="newComment" id="comment" class="form-control" type="text" placeholder="Comment on this event!"></textarea>
             </div>
          
-            <button id="submit-comment" class="btn" ng-click="submitComment()">Submit!</button>    	
+            <button id="submit-comment" class="btn" ng-click="submitComment()" ng-disabled="!newComment ||  newComment.length < 1">Submit!</button>    	
 		</form>
 	</div>
 
-	<div class="container">
-		<h2>Reviews</h2>
+	<div>
+		<h2>Comments</h2>
 	</div>
 
-	<div class="container reviews">
+	<div ng-show="comments.length == 0">
+		<p>Be the first to comment!</p>
+	</div>
+
+	<div class="reviews" ng-repeat="comment in comments">
 		<ol>
-			
+			<div class="comment">
+				<p>{{comment.content}}</p>
+				<p><b>-{{comment.owner.name}}</b></p>
+			</div>
 		</ol>
 	</div>
 </div>
