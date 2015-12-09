@@ -1,12 +1,17 @@
-angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $state, Event, Leaflet, LocationService, PageData) {
+angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $state, Event, Leaflet, LocationService, PageData, $location) {
 	$scope.results = true;
 	$scope.events = Event.events;
 	console.log($scope.events);
 
 	$scope.init = function() {
-		$scope.events.$loaded(function() {
-			$scope.drawMap();
-		});
+		var url = $location.$$path;
+		var typeArr = url.split('/');
+		var type = typeArr[typeArr.length - 1];
+		if (type === 'map') {
+			$scope.events.$loaded(function() {
+				$scope.drawMap();
+			});
+		}
 	}
 
 	$scope.changeTab = function(uiRoute) {

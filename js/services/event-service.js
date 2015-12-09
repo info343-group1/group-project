@@ -1,4 +1,4 @@
-angular.module('EventService', []).service('Event', ['$firebaseObject', '$firebaseArray', 'Util', 'LocationService', function($firebaseObject, $firebaseArray, Util, LocationService) {
+angular.module('EventService', []).service('Event', ['$firebaseObject', '$firebaseArray', 'Util', 'LocationService', 'Login', function($firebaseObject, $firebaseArray, Util, LocationService, Login) {
 	var data = {};
 
 	var eventRef = Util.firebaseRef.child('events');
@@ -21,7 +21,16 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 				else if (component.types.indexOf('administrative_area_level_1') > -1)
 					eventData.state = component.long_name;
 			});
-			data.events.$add(eventData);
+			data.events.$add(eventData).then(function(ref) {
+				var id = ref.key();
+
+				if (Login.user.eventsCreated) {
+					Login.user.eventsCreated.push(id);
+				} else {
+					Login.user.eventsCreated = [id];
+				}
+				console.log(Login.user);
+			});
 		});
 	}
 

@@ -14,10 +14,11 @@ angular.module('appRoutes', ['ui.router']).config(function($stateProvider, $urlR
 			abstract:true
 		})
 		.state('events.tile-view', {
+			url:'/tiles',
 			templateUrl:'./views/event-tiles.html'
 		})
 		.state('events.map-view', {
-			url:'',
+			url:'/map',
 			templateUrl:'./views/event-map.html'
 		})
 		.state('profile',{
