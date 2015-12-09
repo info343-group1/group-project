@@ -40,32 +40,9 @@
 <div class="container">
     <div class="row">
         <div class="col s6">
-            <h4>Top Five Events </h4> 
-                <ul>
-                    <li>One</li>
-                    <li>Two</li>
-                    <li>Three</li>
-                    <li>Four</li>
-                    <li>Five</li>
-                </ul>
-             <br>   
-            <h4>Most Active Users</h4> 
-                <ul>
-                    <li>One</li>
-                    <li>Two</li>
-                    <li>Three</li>
-                    <li>Four</li>
-                    <li>Five</li>
-                 </ul>
-            <br>     
-            <h4>Top Event Neighborhoods</h4> 
-                <ul>
-                    <li>One</li>
-                    <li>Two</li>
-                    <li>Three</li>
-                    <li>Four</li>
-                    <li>Five</li>
-                </ul>
+            <h4>{{map.title}}</h4> 
+            <p>{{map.content}}</p>
+
         </div>
         <div ng-init="drawMap()">
             <div class="col s12 l6 homeMap" id="map"></div>
