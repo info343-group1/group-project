@@ -26,7 +26,7 @@ angular.module('appRoutes', ['ui.router']).config(function($stateProvider, $urlR
 			controller:'ProfileCtrl'
 		})
 		.state('event', {
-			url:'/event',
+			url:'/event/:id',
 			templateUrl: './views/full-event.html',
 			controller: 'FullEventCtrl'
 		});

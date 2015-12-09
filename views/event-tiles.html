@@ -1,5 +1,5 @@
 <div ng-repeat="e in events | filter: eventName" ng-animate='animate' class="col s12 m6 l4">
-	<a ui-sref="event">
+	<a ui-sref="event({id: '&id=' + e.$id})">
 	    <div class="project-tile fade">
 	        <img class="thumbnail" src="http://hemaclear.ohkmedicaldevice.netdna-cdn.com/wp-content/uploads/2013/12/default-placeholder-1024x1024-570x321.png?c3da8b">
 	        <div class="event-info">

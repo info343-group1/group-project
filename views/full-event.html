@@ -1,6 +1,6 @@
 <div class="container">
-	<h2>{{events[index].name}}</h2>
-	<p>{{events[index].description}}</p>
-	<p>{{events[index].address}}</p>
-	<p ng-show="events[index].city">{{events[index].city}}, {{events[index].state}}</p>
+	<h2>{{currEvent.name}}</h2>
+	<p>{{currEvent.description}}</p>
+	<p>{{currEvent.address}}</p>
+	<p ng-show="events[index].city">{{currEvent.city}}, {{currEvent.state}}</p>
 </div>

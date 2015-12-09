@@ -1,6 +1,7 @@
 angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $state, Event, Leaflet, LocationService, PageData) {
 	$scope.results = true;
 	$scope.events = Event.events;
+	console.log($scope.events);
 
 	$scope.init = function() {
 		$scope.events.$loaded(function() {
