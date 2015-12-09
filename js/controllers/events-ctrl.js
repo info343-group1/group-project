@@ -4,6 +4,12 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 	console.log($scope.events);
 	$scope.multipleLocations = false;
 
+	$('.datepicker').pickadate({
+		min: Date.now(),
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15 // Creates a dropdown of 15 years to control year
+  });
+
 	var url = $location.$$path;
 	var typeArr = url.split('/');
 	var type = typeArr[typeArr.length - 1];
