@@ -42,14 +42,16 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 		attending.$loaded(function () {
 			console.log(isAttending);
 			if (isAttending) {
+				var times = 0;
 				for (var index in event["usersAttending"]) {
 					if (event["usersAttending"][index].userId == Login.user.userId) {
 						console.log(index)
 						console.log(attending)
-						attending.$remove(event["usersAttending"][index]).then(function(ref) {
+						attending.$remove(times).then(function(ref) {
 							var id = ref.key();
 						});
 					}
+					times++;
 				}
 			} else {
 				attending.$add(Login.user).then(function(ref) {
