@@ -32,8 +32,8 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="event in currentUser.eventsAttending">
-						<td>{{event}}</td>
+					<tr ng-repeat="aEvent in attendingEvents track by $index">
+						<td><a href='#/event/&id={{aEvent.$id}}'>{{aEvent.name}}</a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -46,8 +46,8 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="event in currentUser.eventsOwned">
-						<td>{{event}}</td>
+					<tr ng-repeat="oEvent in ownedEvents track by $index">
+						<td><a href='#/event/&id={{oEvent.$id}}'>{{oEvent.name}}</a></td>
 					</tr>
 				</tbody>
 			</table>

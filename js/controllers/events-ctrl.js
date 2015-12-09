@@ -17,6 +17,7 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 		$('#tile-tab a').addClass('active');
 	}
 
+	// Draws our event map if the event tab is selected on page load
 	$scope.init = function() {
 		url = $location.$$path;
 		typeArr = url.split('/');
@@ -37,6 +38,7 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 		}
 	}
 
+	// switches to the called ui-route
 	$scope.changeTab = function(uiRoute) {
 		$state.go(uiRoute);
 	}
@@ -50,6 +52,7 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 		$scope.results = !$scope.results;
 	};
 
+	// Makes sure a user is logged in before they can create an event
 	$scope.addEventButton = function() {
 		Login.loggedIn({
 			no: Login.popup,

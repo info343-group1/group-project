@@ -1,7 +1,11 @@
-angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebaseArray', '$firebaseObject', 'Util', function($firebaseAuth, $firebaseArray, $firebaseObject, Util) {
+angular.module('LoginService', []).service('Login', ['$firebaseAuth', 'Util', function($firebaseAuth, Util) {
 
     var service = {};
 
+    /**
+     * object storing all user data, set after login
+     * 
+     */
     service.user = null;
 
     // users object link
@@ -19,36 +23,47 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
     };
 
 
-    // proccess loggin checks
-    service.loggedIn = function(obj) {
-        if (authObj.$getAuth() != null && obj.yes) {
+    /**
+     * checks if the user is logged in, 
+     * calling the coresponding answer functions
+     * 
+     * @param {Object} answer functions
+     *      - optional yes and no
+     *      - silly to omit both
+     */
+    service.loggedIn = function(answer) {
+        if (authObj.$getAuth() != null && answer.yes) {
             if (service.user == null) {
-                setUserObject().then(obj.yes);
+                setUserObject().then(answer.yes);
             } else{
-                obj.yes();
+                answer.yes();
             };
         } else{
-            if (obj.no) {
-                obj.no();
+            if (answer.no) {
+                answer.no();
             };
         };
     }
 
-    // LogOut function
+    /**
+     * Logs the user out
+     * 
+     */
     service.logOut = function() {
         authObj.$unauth();
-        service.userId = false;
+        service.user = null;
         location.reload();
     }
 
-    // Popup the sign in and sing up window.
+    /**
+     * Popup the sign in and sign up window.
+     * 
+     */
     service.popup = function() {
         vex.close();
         var loginHtml;
         $.get('./views/login.html').then(function(response) {
             loginHtml = $(response);
-        })
-        .then(function() {
             loginHtml.find('#signInForm').on('submit', function() {
                 signIn();
                 return false;
@@ -63,8 +78,6 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
                 });
             })
             loginHtml.find('#emailPasswordError').hide();
-        })
-        .then(function() {
             vex.open({
               afterOpen: function($vexContent) {
                 $vexContent.append(loginHtml);
@@ -107,7 +120,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
 
         // Once the user is created, call the logIn function
         .then(function() {
-            return logIn($('#signUpEmail').val(), $('#signUpPassord').val())
+            return logIn($('#signUpEmail').val(), $('#signUpPassord').val());
         })
 
         // Once logged in, set and save the user data
@@ -118,10 +131,9 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
                 name: $('#name').val(),
                 email: $('#signUpEmail').val()
             }, promise.resolve);
-            return promise
+            return promise;
         })
         .then(function() {
-            setUserObject();
             vex.close();
             location.reload();
         })
@@ -151,7 +163,6 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
             });
             return promise;
         })
-        .then(service.setUserObject)
         .then(function() {
             vex.close();
             location.reload();
@@ -160,17 +171,11 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
 
     // populate the user object
     var setUserObject = function() {
-        var first = function(obj) {
-            for (var a in obj) return a;
-        }
-
-        var authData = authObj.$getAuth();
-        service.userId = authData.uid;
-
         var promise = $.Deferred();
+        var authData = authObj.$getAuth();
 
         userRef.orderByChild("userId").equalTo(authData.uid).once("value", function(user) {
-            var id = first(user.val());
+            var id = (function(obj){for(var a in obj) return a;})(user.val());
             service.user = user.val()[id];
             service.user.auth = authData;
             service.user.id = id;

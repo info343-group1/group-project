@@ -30,7 +30,6 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 			} else {
 				Login.user.eventsCreated = [id];
 			}
-			console.log(Login.user);
 			Login.user.firebase.child('createdEvents').push(id);
 		});
 	}
@@ -51,30 +50,20 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 		var attendingRef = eventRef.child(e.$id).child("usersAttending");
 		var attending = $firebaseArray(attendingRef);
 		attending.$loaded(function (ref) {
-			console.log(isAttending);
 			if (isAttending) {
 				var times = 0;
 				for (var userIndex in e["usersAttending"]) {
-					console.log(e["usersAttending"][userIndex]);
 					if (e["usersAttending"][userIndex].id == Login.user.userId) {
-						attending.$remove(times).then(function(ref) {
-							var id = ref.key();
-						});
+						attending.$remove(times);
 					}
 					times++;
 				}
 			} else {
-				console.log(Login.user);
 				var uData = {
 					name: Login.user.name,
 					id: Login.user.userId
 				}
 				attending.$add(uData);
-				// .then(function(ref) {
-				// 	var id = ref.key();
-				// });
-				console.log(uData);
-
 			}
 			callback(data.isAttending(e));
 		});
@@ -82,12 +71,37 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 
 	data.isAttending = function(e) {
 		for (var index in e.usersAttending) {
-			console.log(e.usersAttending[index]);
 			if (e.usersAttending[index].id == Login.user.userId) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	data.getOwnedEvents = function() {
+		data.owned = [];
+		for(var index in Login.user.createdEvents) {
+			data.events.$loaded(function () {
+				data.events.forEach(function (item) {
+					if (Login.user.createdEvents[index] == item.$id) {
+						data.owned.push(item);
+					}
+				})
+			})
+		}
+	}
+
+	data.getAttendingEvents = function() {
+		data.attending = [];
+		for(var index in Login.user.attendingEvents) {
+			data.events.$loaded(function () {
+				data.events.forEach(function (item) {
+					if (Login.user.attendingEvents[index] == item.$id) {
+						data.attending.push(item);
+					}
+				})
+			})
+		}
 	}
 
 	return data;

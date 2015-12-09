@@ -7,12 +7,15 @@ angular.module('FullEventCtrl', []).controller('FullEventCtrl', function($scope,
 		var id = splitUrl[splitUrl.length - 1];
 		console.log(id);
 		$scope.currEvent = $scope.events.$getRecord(id);
-		if (Login.user) {
-			$scope.attending = Event.isAttending($scope.currEvent);
-		}
 
 		var commentRef = Util.firebaseRef.child('events').child($scope.currEvent.$id).child('comments');
 		$scope.comments = $firebaseArray(commentRef);
+
+		Login.loggedIn({
+	        yes: function() {
+	          $scope.attending = Event.isAttending($scope.currEvent);
+	        }
+		});
 
 		$scope.submitComment = function() {
 			Login.loggedIn({

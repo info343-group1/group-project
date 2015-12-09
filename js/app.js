@@ -17,15 +17,6 @@ angular.module('app',
 .controller('MainCtrl', function($scope, Login) {
 	$scope.loggedIn = false;
 
-	// Thinks Location is not defined
-
-	// $scope.init = function() {
-	// 	// Get user's location
-	// 	LocationService.getUserLocation(function(position) {
-	// 		console.log(position);
-	// 	});
-	// }
-
 	Login.loggedIn({
 		yes: function() {
 			$scope.loggedIn = true;
