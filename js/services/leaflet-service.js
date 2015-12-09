@@ -31,7 +31,8 @@ angular.module('LeafletService', []).service('Leaflet', ['$firebaseObject', '$fi
 				res = res.results[0].geometry.location;
 				var marker = new L.marker([res.lat, res.lng], {icon: markIcon});
 				marker.addTo(events);
-				marker.bindPopup("<b>" + item.name +"</b><br>" + item.address + "<br>" + item.description);
+                var route = "&id=" + item.$id;
+				marker.bindPopup("<a href='#/event/" + route + "'><b>" + item.name +"</b></a><br>" + item.address + "<br>" + item.description);
 			});
 	    		
     	});
