@@ -13,8 +13,10 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 				$scope.drawMap();
 			});
 
+			$('#tile-tab a').removeClass('active');
 			$('#map-tab a').addClass('active');
 		} else {
+			$('#map-tab a').removeClass('active');
 			$('#tile-tab a').addClass('active');
 		}
 	}

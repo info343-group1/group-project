@@ -7,10 +7,10 @@
 	<div class="form-group">
 		<form>
 			<div>
-                <textarea id="comment" class="form-control" type="text" placeholder="Comment on this event!"></textarea>
+                <textarea ng-model="newComment" id="comment" class="form-control" type="text" placeholder="Comment on this event!"></textarea>
             </div>
          
-            <button id="submit-comment" class="btn" ng-model="newComment" ng-click="submitComment()">Submit!</button>    	
+            <button id="submit-comment" class="btn" ng-click="submitComment()">Submit!</button>    	
 		</form>
 	</div>
 
