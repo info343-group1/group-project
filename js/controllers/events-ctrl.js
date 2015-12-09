@@ -17,10 +17,9 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 	}
 
 	$scope.init = function() {
-		var url = $location.$$path;
-		var typeArr = url.split('/');
-		var type = typeArr[typeArr.length - 1];
-		console.log('init called');
+		url = $location.$$path;
+		typeArr = url.split('/');
+		type = typeArr[typeArr.length - 1];
 		if (type === 'map') {
 			if (arrayLoaded) {
 				$scope.events.$loaded(function() {
