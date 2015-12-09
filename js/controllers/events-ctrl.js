@@ -48,6 +48,7 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 		Leaflet.drawMap();
 	}
 	
+	// I have no clue what the does. Not even sure if its ever called?
 	$scope.searchQuery = function() {
 		$scope.results = !$scope.results;
 	};
@@ -62,6 +63,7 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 		});
 	}
 
+	// Creates a new event with given user input
 	$scope.addEvent = function() {
 		var address = $scope.newEventAddress;
 		var zip = $scope.newEventZip;
@@ -102,6 +104,9 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 		});
 	}
 
+	// Called when user selects a location if their input was ambiguous
+	// It is very similar to the above method with some slightly different
+	// nuances. I coul refactor it but its 2:37am
 	$scope.selectLocation = function(location) {
 		var eventData = {
 			'name':$scope.newEventName,
@@ -133,10 +138,13 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 		}
 	}
 
+	//filters the leaflet map
 	$scope.customFilter = function(search) {
 		Leaflet.customFilter(search);
 	}
 
+	// Populates text with data from firebase. Makes it easier to localize
+	// or change text
 	$scope.addText = function (){
 		PageData.getText(function(data){
 			$scope.pageHeader= data.events.header
