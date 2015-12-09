@@ -8,4 +8,13 @@ angular.module('HomeCtrl', []).controller('HomeCtrl', function($scope, Leaflet, 
     $scope.drawMap = function() {
     	Leaflet.drawMap();
     }
+
+    $scope.addText = function (){
+    	PageData.getText(function(data){
+    		$scope.pageHeader= data.home.header
+    		$scope.sections= data.home.cols
+    		console.log($scope.sections)
+    	});
+    	
+    }
 });
