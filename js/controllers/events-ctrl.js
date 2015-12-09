@@ -13,9 +13,9 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 				$scope.drawMap();
 			});
 
-			$('ul.tabs').tabs('select_tab', 'map-tab');
+			$('#map-tab a').addClass('active');
 		} else {
-			$('ul.tabs').tabs('select_tab', 'tile-tab');
+			$('#tile-tab a').addClass('active');
 		}
 	}
 
