@@ -57,6 +57,7 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 					if (event["usersAttending"][index].userId == Login.user.userId) {
 						attending.$remove(times).then(function(ref) {
 							var id = ref.key();
+							Login.user.firebase.child('attendingEvents').pop(id);
 						});
 					}
 					times++;
@@ -64,7 +65,7 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 			} else {
 				attending.$add(Login.user).then(function(ref) {
 					var id = ref.key();
-					
+					Login.user.firebase.child('attendingEvents').push(id);	
 				})
 			}
 		})
@@ -88,6 +89,19 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 				data.events.forEach(function (item) {
 					if (Login.user.createdEvents[index] == item.$id) {
 						data.owned.push(item);
+					}
+				})
+			})
+		}
+	}
+
+	data.getAttendingEvents = function() {
+		data.attending = [];
+		for(var index in Login.user.attendingEvents) {
+			data.events.$loaded(function () {
+				data.events.forEach(function (item) {
+					if (Login.user.attendingEvents[index] == item.$id) {
+						data.attending.push(item);
 					}
 				})
 			})

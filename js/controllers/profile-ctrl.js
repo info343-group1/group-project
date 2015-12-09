@@ -11,6 +11,8 @@ angular.module('ProfileCtrl', []).controller('ProfileCtrl', function($scope, Log
 			$scope.image = "https://upload.wikimedia.org/wikipedia/commons/7/77/SpaceNeedleTopClose.jpg";
 			Event.getOwnedEvents();
 			$scope.ownedEvents = Event.owned;
+			Event.getAttendingEvents();
+			$scope.attendingEvents = Event.attending;
 
 			if (Login.user.auth[provider].profileImageURL != null) {
 				$scope.image = Login.user.auth[provider].profileImageURL;
