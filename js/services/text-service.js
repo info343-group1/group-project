@@ -1,5 +1,5 @@
 angular.module('TextService', []).service('PageData', ['$firebaseObject', '$firebaseArray', 'Util', function($firebaseObject, $firebaseArray, Util) {
-    var data= {};
+    var data = {};
     var textRef = Util.firebaseRef.child('page_data');
 
     // commented out due to it crashing the page
