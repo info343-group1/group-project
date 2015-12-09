@@ -1,6 +1,6 @@
 angular.module('LeafletService', []).service('Leaflet', ['$firebaseObject', '$firebaseArray', 'Util', "LocationService", "Event", function($firebaseObject, $firebaseArray, Util, LocationService, Event) {
     var leafletService = {};
-    var events
+    var events;
     var view = {coordinates: [38.617, -92.284], zoom: 4 }
     leafletService.drawMap = function() {
         LocationService.getUserLocation(function(pos) {
@@ -50,10 +50,13 @@ angular.module('LeafletService', []).service('Leaflet', ['$firebaseObject', '$fi
                     } 
                 }
             }
-        })
+        });
         leafletService.map.removeLayer(events);
-        leafletService.customMap(newEvents);
-        
+        if (term === '') {
+            leafletService.customMap(Event.events);
+        } else {
+            leafletService.customMap(newEvents);
+        }
     }
 
     return leafletService;
