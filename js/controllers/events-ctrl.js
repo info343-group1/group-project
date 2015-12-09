@@ -2,6 +2,7 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 	$scope.results = true;
 	$scope.events = Event.events;
 	console.log($scope.events);
+	$scope.multipleLocations = false;
 
 	$scope.init = function() {
 		var url = $location.$$path;
@@ -11,6 +12,10 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 			$scope.events.$loaded(function() {
 				$scope.drawMap();
 			});
+
+			$('ul.tabs').tabs('select_tab', 'map-tab');
+		} else {
+			$('ul.tabs').tabs('select_tab', 'tile-tab');
 		}
 	}
 
@@ -28,25 +33,39 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 	};
 
 	$scope.addEvent = function() {
+		var address = $scope.newEventAddress;
+		var zip = $scope.newEventZip;
 		var eventData = {
 			'name':$scope.newEventName,
 			'date':$scope.newEventDate,
-			'address':$scope.newEventAddress,
-			'zip':$scope.newEventZip,
 			'description':$scope.newEventDescr
 		}
 
-		if ($scope.newEventName && $scope.newEventDate && $scope.newEventAddress && $scope.newEventZip, $scope.newEventDescr) {
-			Event.addEvent(eventData);
+		LocationService.getLatLong(eventData.address + ' ' + eventData.zip, function(location) {
+			var components = location.results[0].address_components;
+			components.forEach(function(component) {
+				if (component.types.indexOf('neighborhood') > -1)
+					eventData.neighborhood = component.long_name;
+				else if (component.types.indexOf('locality') > -1)
+					eventData.city = component.long_name;
+				else if (component.types.indexOf('administrative_area_level_1') > -1)
+					eventData.state = component.long_name;
+			});
+			if (location.results > 1) {
+				multipleLocations = true;
+			} else {
+				if ($scope.newEventName && $scope.newEventDate && $scope.newEventAddress && $scope.newEventZip, $scope.newEventDescr) {
+					Event.addEvent(eventData);
 
-			$scope.newEventName = '';
-			$scope.newEventDate = '';
-			$scope.newEventAddress = '';
-			$scope.newEventZip = '';
-			$scope.newEventDescr = '';
-		}
-
-		$('#createModal').closeModal();
+					$scope.newEventName = '';
+					$scope.newEventDate = '';
+					$scope.newEventAddress = '';
+					$scope.newEventZip = '';
+					$scope.newEventDescr = '';
+					$('#createModal').closeModal();
+				}
+			}
+		});
 	}
 
 	$scope.customFilter = function(search) {

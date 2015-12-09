@@ -25,9 +25,7 @@ angular.module('LeafletService', []).service('Leaflet', ['$firebaseObject', '$fi
 	       iconSize: [20, 40]
     	});
     	data.map(function(item) {
-            console.log(item);
 			LocationService.getLatLong(item.address, function(res) {
-                console.log(res);
 				res = res.results[0].geometry.location;
 				var marker = new L.marker([res.lat, res.lng], {icon: markIcon});
 				marker.addTo(events);

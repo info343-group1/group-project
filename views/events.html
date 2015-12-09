@@ -30,11 +30,14 @@
             	<textarea id="eventDesc" class="materialize-textarea" ng-model="newEventDescr"></textarea>
                 <label for="eventDesc">Event Description</label>
              </div>
-             <div class="col s6 right-align">
-                <a class="btn" type="button" ng-click="addEvent()">Submit</a>
+             <div ng-show="multipleLocations">
+                <p>Test</p>
             </div>
-            <div class="col s6 left-align">
+            <div class="col s6 right-align">
                 <a class="btn modal-action modal-close">Cancel</a>
+            </div>
+             <div class="col s6 left-align">
+                <a class="btn" type="button" ng-click="addEvent()">Submit</a>
             </div>
          </div>
      </div> 
@@ -53,8 +56,8 @@
 
     <div class="row center">
         <ul class="tabs s4" tabs>
-            <li class="tab"><a class="active teal-text" ng-click="changeTab('events.map-view')">Map</a></li>
-            <li class="tab"><a class="teal-text" ng-click="changeTab('events.tile-view')">Tiles</a></li>      
+            <li id="map-tab" class="tab"><a class="teal-text" ng-click="changeTab('events.map-view')">Map</a></li>
+            <li id="tile-tab" class="tab"><a class="teal-text" ng-click="changeTab('events.tile-view')">Tiles</a></li>      
         </ul>
     </div>
     <div class="row" ng-init="init()" ui-view></div>
