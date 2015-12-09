@@ -1,15 +1,3 @@
-/*Grid CSS*/
-.project-tile {
-  border-radius: 2px;
-  box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.8);
-  margin-left: 2%;
-  margin-right: 2%;
-  margin-top: 5%;
-  margin-top: 5%;
-  padding: 0px;
-  background-color: white;
-}
-
 .flex-div {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -21,8 +9,17 @@
 }
 
 .event-tile {
-  min-height: 1px;
+  border-radius: 2px;
+  box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.8);
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 5%;
+  margin-top: 5%;
+  padding: 0px;
+  background-color: white;
 }
+
+.event-container {}
 
 .event-info {
   padding-left: 20px;

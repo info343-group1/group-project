@@ -3,8 +3,30 @@
 	<p>{{currEvent.description}}</p>
 	<p>{{currEvent.address}}</p>
 	<p ng-show="currEvent.city">{{currEvent.city}}, {{currEvent.state}}</p>
+	<div class="row">
+		<div class="col s12 l4">
+			<table>
+				<thead>
+					<tr>
+						<th>People Attending</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="user in currEvent.usersAttending">
+						<td>{{user.name}}</td>
+					</tr>
+					<tr ng-show="!currEvent.usersAttending || currEvent.usersAttending.length == 0">
+						<td>Nobody is Currently Attending this Event!</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col s12">
+			<button class="btn" id="attend-btn" ng-click="attendEvent()">Attend this Event!</button>
+		</div>
+	</div>
 
-	<div class="form-group">
+	<div class="form-group create-comment row">
 		<form>
 			<div>
                 <textarea ng-model="newComment" id="comment" class="form-control" type="text" placeholder="Comment on this event!"></textarea>
