@@ -36,6 +36,10 @@
                 <textarea id="eventDesc" class="materialize-textarea" ng-model="newEventDescr"></textarea>
                 <label for="eventDesc">Event Description</label>
              </div>
+             <div ng-show="multipleLocations" class="col s12 input-field location-picker">
+                <h4>Which of these locations are you referring to?</h4>
+                <a ng-repeat="location in locations" class="location-link" ng-click="selectLocation(location)">{{location.formatted_address}}</a>
+             </div>
              <div class="col s6 right-align">
                 <a class="btn" type="button" ng-click="addEvent()">Submit</a>
             </div>
