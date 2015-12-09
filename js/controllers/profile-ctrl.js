@@ -1,6 +1,6 @@
 angular.module('ProfileCtrl', []).controller('ProfileCtrl', function($scope, Login, Util) {
+	$scope.ready = false;
 	$scope.loggedIn = false;
-
 
 	// ALEX Please convert this in to the new format
 
@@ -13,6 +13,7 @@ angular.module('ProfileCtrl', []).controller('ProfileCtrl', function($scope, Log
 
 	Login.loggedIn({
 		yes: function() {
+			$scope.ready = true;
 			$scope.loggedIn = true;
 			console.log(Login.user);
 			var provider = Login.user.auth["provider"];
@@ -23,6 +24,7 @@ angular.module('ProfileCtrl', []).controller('ProfileCtrl', function($scope, Log
 				$scope.image = Login.user.auth[provider].profileImageURL;
 			}
 		}, no: function() {
+			$scope.ready = true;
 			$scope.loggedIn = false;
 			Login.popup();
 		}
