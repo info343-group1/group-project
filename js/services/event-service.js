@@ -8,7 +8,11 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 	 		min: true,
 	    selectMonths: true, // Creates a dropdown to control month
 	    selectYears: 15, // Creates a dropdown of 15 years to control year
-	    container: '#datepickerBox'
+	    container: '#datepickerBox',
+	    format: "mm/dd/yyyy",
+	    formatSubmit: "mm/dd/yyyy",
+	    format: "mm/dd/yyyy",
+	    hiddenName: true
 	  });
 
 	/**
