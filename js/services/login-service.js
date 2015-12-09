@@ -23,7 +23,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
         // Catch any errors
         .catch(function(error) {
             // console.error("Error: ", error);
-            $('#emailPasswordError').slideDown();
+            $('#emailPasswordError').fadeIn();
         });
     }
 
