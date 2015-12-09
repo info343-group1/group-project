@@ -42,4 +42,8 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 
 		$('#createModal').closeModal();
 	}
+
+	$scope.customFilter = function(search) {
+		Leaflet.customFilter(search);
+	}
 });

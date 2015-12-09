@@ -46,7 +46,7 @@
         <!-- #eventName, #eventType, and #eventZip will leverage jQuery UI's 
         autocomplete feature  -->
         <div class="input-field col s12 l6">
-            <input id="eventName" type="text" class="validate" ng-model="eventName">
+            <input id="eventName" type="text" class="validate" ng-model="eventName" ng-change="customFilter(eventName)">
             <label for="eventName">Search Events</label>       
         </div>
     </div>

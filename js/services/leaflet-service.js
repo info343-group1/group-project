@@ -1,9 +1,8 @@
 angular.module('LeafletService', []).service('Leaflet', ['$firebaseObject', '$firebaseArray', 'Util', "LocationService", "Event", function($firebaseObject, $firebaseArray, Util, LocationService, Event) {
     var leafletService = {};
-    
+    var events
     var view = {coordinates: [38.617, -92.284], zoom: 4 }
     leafletService.drawMap = function() {
-        
         LocationService.getUserLocation(function(pos) {
             if (leafletService.map) {
                 leafletService.map.remove();
@@ -19,7 +18,7 @@ angular.module('LeafletService', []).service('Leaflet', ['$firebaseObject', '$fi
     }
 
     leafletService.customMap = function(data) {
-    	var events = new L.LayerGroup([]);
+    	events = new L.LayerGroup([]);
     	var options = {fillColor: "#00007f", color: "#00007f", fillOpacity: ".8"};
     	var markIcon = L.icon({
 	       iconUrl: './assets/icons/pin65.svg',
@@ -35,6 +34,26 @@ angular.module('LeafletService', []).service('Leaflet', ['$firebaseObject', '$fi
 	    		
     	});
     	events.addTo(leafletService.map);
+    }
+
+    leafletService.customFilter = function(term) {
+        var newEvents = [];
+        term = term.toLowerCase();
+        Event.events.forEach(function(item) {
+            for(var index in item) {
+                if (index != "$id" && index != "$priority" && index != "description") {
+                    var compareTo = "" + item[index];
+                    compareTo = compareTo.toLowerCase()
+                    if (compareTo.indexOf(term) != -1) {
+                        newEvents.push(item);
+                        break;
+                    } 
+                }
+            }
+        })
+        leafletService.map.removeLayer(events);
+        leafletService.customMap(newEvents);
+        
     }
 
     return leafletService;
