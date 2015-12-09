@@ -25,13 +25,15 @@ angular.module('LeafletService', []).service('Leaflet', ['$firebaseObject', '$fi
 	       iconSize: [20, 40]
     	});
     	data.map(function(item) {
-			LocationService.getLatLong(item.address, function(res) {
-				res = res.results[0].geometry.location;
-				var marker = new L.marker([res.lat, res.lng], {icon: markIcon});
-				marker.addTo(events);
-                var route = "&id=" + item.$id;
-				marker.bindPopup("<a href='#/event/" + route + "'><b>" + item.name +"</b></a><br>" + item.address + "<br>" + item.description);
-			});
+            if (item.address) {
+    			LocationService.getLatLong(item.address, function(res) {
+    				res = res.results[0].geometry.location;
+    				var marker = new L.marker([res.lat, res.lng], {icon: markIcon});
+    				marker.addTo(events);
+                    var route = "&id=" + item.$id;
+    				marker.bindPopup("<a href='#/event/" + route + "'><b>" + item.name +"</b></a><br>" + item.address + "<br>" + item.description);
+    			});
+            }
 	    		
     	});
     	events.addTo(leafletService.map);
