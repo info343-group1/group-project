@@ -15,12 +15,12 @@ angular.module('ProfileCtrl', []).controller('ProfileCtrl', function($scope, Log
 		yes: function() {
 			$scope.loggedIn = true;
 			console.log(Login.user);
-			var provider = Login.authObj.$getAuth()["provider"];
+			var provider = Login.user.auth["provider"];
 			$scope.currentUser = Login.user;
 			$scope.image = "https://upload.wikimedia.org/wikipedia/commons/7/77/SpaceNeedleTopClose.jpg";
 
-			if (Login.authObj.$getAuth()[provider].profileImageURL != null) {
-				$scope.image = Login.authObj.$getAuth()[provider].profileImageURL;
+			if (Login.user.auth[provider].profileImageURL != null) {
+				$scope.image = Login.user.auth[provider].profileImageURL;
 			}
 		}, no: function() {
 			$scope.loggedIn = false;
