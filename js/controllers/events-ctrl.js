@@ -4,20 +4,24 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 	console.log($scope.events);
 	$scope.multipleLocations = false;
 
+	var url = $location.$$path;
+	var typeArr = url.split('/');
+	var type = typeArr[typeArr.length - 1];
+	if (type === 'map') {
+		$('#tile-tab a').removeClass('active');
+		$('#map-tab a').addClass('active');
+	} else {
+		$('#map-tab a').removeClass('active');
+		$('#tile-tab a').addClass('active');
+	}
+
 	$scope.init = function() {
-		var url = $location.$$path;
-		var typeArr = url.split('/');
-		var type = typeArr[typeArr.length - 1];
 		if (type === 'map') {
+			$scope.drawMap();
 			$scope.events.$loaded(function() {
 				$scope.drawMap();
 			});
 
-			$('#tile-tab a').removeClass('active');
-			$('#map-tab a').addClass('active');
-		} else {
-			$('#map-tab a').removeClass('active');
-			$('#tile-tab a').addClass('active');
 		}
 	}
 
