@@ -162,6 +162,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
 
         userRef.orderByChild("userId").equalTo(authData.uid).once("value", function(user) {
             service.user = user.val()[first(user.val())];
+            service.user.auth = authData;
             promise.resolve();
         });
 
