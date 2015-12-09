@@ -22,12 +22,6 @@
 				<li ng-show="currentUser.email.length > 0"><h5>{{currentUser.email}}</h5></li>
 			</ul>
 		</div>
-		<div class="col s4">
-			<ul>
-				<li class="center-align"><a class="btn" href="#">Event Trends</a></li>
-				<li class="center-align" style="margin-top:20px"><a class="btn" href="#">Upload Photos</a></li>
-			</ul>
-		</div>
 	</div>
 	<div class="row profileTable">
 		<div class="col s12 l4">
@@ -54,20 +48,6 @@
 				<tbody>
 					<tr ng-repeat="event in currentUser.eventsOwned">
 						<td>{{event}}</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="col s12 l4">
-			<table>
-				<thead>
-					<tr>
-						<th>Liked Comments</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Placeholder</td>
 					</tr>
 				</tbody>
 			</table>

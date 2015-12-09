@@ -35,5 +35,13 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 		eventData.$save(eventData);
 	}
 
+	data.attendEvent = function(event) {
+		var attendingRef = eventRef.child(event.$id).child("usersAttending");
+		var attending = $firebaseArray(attendingRef);
+		attending.$add(Login.user).then(function(ref) {
+			var id = ref.key();
+		})
+	}
+	
 	return data;
 }]);
