@@ -1,4 +1,4 @@
-angular.module('EventService', []).service('Event', ['$firebaseObject', '$firebaseArray', 'Util', 'LocationService', function($firebaseObject, $firebaseArray, Util, LocationService) {
+angular.module('EventService', []).service('Event', ['$firebaseObject', '$firebaseArray', 'Util', 'LocationService', 'Login', function($firebaseObject, $firebaseArray, Util, LocationService, Login) {
 	var data = {};
 
 	var eventRef = Util.firebaseRef.child('events');
@@ -11,17 +11,15 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 	 * 				   in the database.
 	 */
 	data.addEvent = function(eventData) {
-		LocationService.getLatLong(eventData.address + ' ' + eventData.zip, function(location) {
-			var components = location.results[0].address_components;
-			components.forEach(function(component) {
-				if (component.types.indexOf('neighborhood') > -1)
-					eventData.neighborhood = component.long_name;
-				else if (component.types.indexOf('locality') > -1)
-					eventData.city = component.long_name;
-				else if (component.types.indexOf('administrative_area_level_1') > -1)
-					eventData.state = component.long_name;
-			});
-			data.events.$add(eventData);
+		data.events.$add(eventData).then(function(ref) {
+			var id = ref.key();
+
+			if (Login.user.eventsCreated) {
+				Login.user.eventsCreated.push(id);
+			} else {
+				Login.user.eventsCreated = [id];
+			}
+			console.log(Login.user);
 		});
 	}
 

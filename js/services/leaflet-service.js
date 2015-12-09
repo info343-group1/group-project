@@ -22,16 +22,18 @@ angular.module('LeafletService', []).service('Leaflet', ['$firebaseObject', '$fi
     	var options = {fillColor: "#00007f", color: "#00007f", fillOpacity: ".8"};
     	var markIcon = L.icon({
 	       iconUrl: './assets/icons/pin65.svg',
-	       iconSize: [40, 50]
+	       iconSize: [20, 40]
     	});
     	data.map(function(item) {
-			LocationService.getLatLong(item.address, function(res) {
-				res = res.results[0].geometry.location;
-				var marker = new L.marker([res.lat, res.lng], {icon: markIcon});
-				marker.addTo(events);
-                var route = "&id=" + item.$id;
-				marker.bindPopup("<a href='#/event/" + route + "'><b>" + item.name +"</b></a><br>" + item.address + "<br>" + item.description);
-			});
+            if (item.address) {
+    			LocationService.getLatLong(item.address, function(res) {
+    				res = res.results[0].geometry.location;
+    				var marker = new L.marker([res.lat, res.lng], {icon: markIcon});
+    				marker.addTo(events);
+                    var route = "&id=" + item.$id;
+    				marker.bindPopup("<a href='#/event/" + route + "'><b>" + item.name +"</b></a><br>" + item.address + "<br>" + item.description);
+    			});
+            }
 	    		
     	});
     	events.addTo(leafletService.map);
@@ -53,7 +55,7 @@ angular.module('LeafletService', []).service('Leaflet', ['$firebaseObject', '$fi
             }
         });
         leafletService.map.removeLayer(events);
-        if (term === '') {
+        if (term === '' || !term) {
             leafletService.customMap(Event.events);
         } else {
             leafletService.customMap(newEvents);

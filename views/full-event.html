@@ -2,5 +2,32 @@
 	<h2>{{currEvent.name}}</h2>
 	<p>{{currEvent.description}}</p>
 	<p>{{currEvent.address}}</p>
-	<p ng-show="events[index].city">{{currEvent.city}}, {{currEvent.state}}</p>
+	<p ng-show="currEvent.city">{{currEvent.city}}, {{currEvent.state}}</p>
+
+	<div class="form-group">
+		<form>
+			<div>
+                <textarea ng-model="newComment" id="comment" class="form-control" type="text" placeholder="Comment on this event!"></textarea>
+            </div>
+         
+            <button id="submit-comment" class="btn" ng-click="submitComment()" ng-disabled="!newComment ||  newComment.length < 1">Submit!</button>    	
+		</form>
+	</div>
+
+	<div>
+		<h2>Comments</h2>
+	</div>
+
+	<div ng-show="comments.length == 0">
+		<p>Be the first to comment!</p>
+	</div>
+
+	<div class="reviews" ng-repeat="comment in comments">
+		<ol>
+			<div class="comment">
+				<p>{{comment.content}}</p>
+				<p><b>-{{comment.owner.name}}</b></p>
+			</div>
+		</ol>
+	</div>
 </div>

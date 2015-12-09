@@ -1,12 +1,28 @@
-angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $state, Event, Leaflet, LocationService, PageData, Login) {
+angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $state, Event, Leaflet, LocationService, PageData, $location, Login) {
 	$scope.results = true;
 	$scope.events = Event.events;
 	console.log($scope.events);
+	$scope.multipleLocations = false;
+
+	var url = $location.$$path;
+	var typeArr = url.split('/');
+	var type = typeArr[typeArr.length - 1];
+	if (type === 'map') {
+		$('#tile-tab a').removeClass('active');
+		$('#map-tab a').addClass('active');
+	} else {
+		$('#map-tab a').removeClass('active');
+		$('#tile-tab a').addClass('active');
+	}
 
 	$scope.init = function() {
-		$scope.events.$loaded(function() {
+		if (type === 'map') {
 			$scope.drawMap();
-		});
+			$scope.events.$loaded(function() {
+				$scope.drawMap();
+			});
+
+		}
 	}
 
 	$scope.changeTab = function(uiRoute) {
@@ -22,56 +38,47 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 		$scope.results = !$scope.results;
 	};
 
-	var addEvent = function() {
-		console.log('addEvent');
-		var inputs = $('#addEventForm :input');
-		var eventData = {}
-
-		var noEmptyInput = true;
-		var atleastOneNotEmpty = false;
-
-		inputs.each(function() {
-			if (this.type == "submit") {
-				return
-			};
-			eventData[this.name] = this.value;
-			if (this.value !== '') {
-				atleastOneNotEmpty = true;
-			} else {
-				noEmptyInput = false;
-			}
-		});
-
-		if (noEmptyInput && atleastOneNotEmpty) {
-			Event.addEvent(eventData);
-		}
-	}
-
-	$scope.addEvent = function() {
+	$scope.addEventButton = function() {
 		Login.loggedIn({
 			no: Login.popup,
 			yes: function() {
-				var addEventHtml;
-        $.get('./views/add-event.html').then(function(response) {
-            addEventHtml = $(response);
-        })
-        .then(function() {
-            addEventHtml.find('#addEventForm').on('submit', function() {
-                addEvent();
-                return false;
-            });
-        })
-        .then(function() {
-            vex.open({
-              afterOpen: function($vexContent) {
-                $vexContent.append(addEventHtml);
-								// $('.datepicker').pickadate({
-							 //    selectMonths: true, // Creates a dropdown to control month
-							 //    selectYears: 15 // Creates a dropdown of 15 years to control year
-							 //  });
-              }
-            });
-        });
+				$('#createModal').openModal();
+			}
+		});
+	}
+
+	$scope.addEvent = function() {
+		var address = $scope.newEventAddress;
+		var zip = $scope.newEventZip;
+		var eventData = {
+			'name':$scope.newEventName,
+			'date':$scope.newEventDate,
+			'description':$scope.newEventDescr
+		}
+
+		LocationService.getLatLong(address + ' ' + zip, function(location) {
+			var components = location.results[0].address_components;
+			components.forEach(function(component) {
+				if (component.types.indexOf('neighborhood') > -1)
+					eventData.neighborhood = component.long_name;
+				else if (component.types.indexOf('locality') > -1)
+					eventData.city = component.long_name;
+				else if (component.types.indexOf('administrative_area_level_1') > -1)
+					eventData.state = component.long_name;
+			});
+			if (false) {
+				multipleLocations = true;
+			} else {
+				if ($scope.newEventName && $scope.newEventDate && $scope.newEventAddress && $scope.newEventZip, $scope.newEventDescr) {
+					Event.addEvent(eventData);
+
+					$scope.newEventName = '';
+					$scope.newEventDate = '';
+					$scope.newEventAddress = '';
+					$scope.newEventZip = '';
+					$scope.newEventDescr = '';
+					$('#createModal').closeModal();
+				}
 			}
 		});
 	}
