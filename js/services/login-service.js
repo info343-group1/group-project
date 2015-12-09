@@ -2,13 +2,77 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
 
     var service = {};
 
-    // Add item refs
-    var userRef = Util.firebaseRef.child("users");
-
     service.user = null;
+
+    // users object link
+    var userRef = Util.firebaseRef.child("users");
 
     // Create authorization object that referes to firebase
     var authObj = $firebaseAuth(Util.firebaseRef);
+
+    // permisions for each provider
+    var permissions = {
+        facebook: "email,user_likes",
+        twitter: "",
+        google: "email,profile",
+        github: "user"
+    };
+
+
+    // proccess loggin checks
+    service.loggedIn = function(obj) {
+        if (authObj.$getAuth() != null && obj.yes) {
+            if (service.user == null) {
+                setUserObject().then(obj.yes);
+            } else{
+                obj.yes();
+            };
+        } else{
+            if (obj.no) {
+                obj.no();
+            };
+        };
+    }
+
+    // LogOut function
+    service.logOut = function() {
+        authObj.$unauth();
+        service.userId = false;
+        location.reload();
+    }
+
+    // Popup the sign in and sing up window.
+    service.popup = function() {
+        vex.close();
+        var loginHtml;
+        $.get('./views/login.html').then(function(response) {
+            loginHtml = $(response);
+        })
+        .then(function() {
+            loginHtml.find('#signInForm').on('submit', function() {
+                signIn();
+                return false;
+            });
+            loginHtml.find('#signUpForm').on('submit', function() {
+                signUp();
+                return false;
+            });
+            Object.keys(permissions).forEach(function(provider){
+                loginHtml.find('#' + provider).on('click', function() {
+                    logginProvider(provider);
+                });
+            })
+            loginHtml.find('#emailPasswordError').hide();
+        })
+        .then(function() {
+            vex.open({
+              afterOpen: function($vexContent) {
+                $vexContent.append(loginHtml);
+                $('ul.tabs').tabs();
+              }
+            });
+        });
+    }
 
     // SignIn function
     var signIn = function() {
@@ -32,13 +96,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
         });
     }
 
-    // LogOut function
-    service.logOut = function() {
-        authObj.$unauth();
-        service.userId = false;
-        location.reload();
-    }
-
+    
     // SignUp function
     var signUp = function() {
         // Create user
@@ -73,54 +131,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
         });
     }
 
-
-    service.popup = function() {
-        vex.close();
-        var loginHtml;
-        $.get('./views/login.html').then(function(response) {
-            loginHtml = $(response);
-        })
-        .then(function() {
-            loginHtml.find('#signInForm').on('submit', function() {
-                signIn();
-                return false;
-            });
-            loginHtml.find('#signUpForm').on('submit', function() {
-                signUp();
-                return false;
-            });
-            loginHtml.find('#facebook').on('click', function() {
-                logginProvider('facebook');
-            });
-            loginHtml.find('#twitter').on('click', function() {
-                logginProvider('twitter');
-            });
-            loginHtml.find('#google').on('click', function() {
-                logginProvider('google');
-            });
-            loginHtml.find('#github').on('click', function() {
-                logginProvider('github');
-            });
-            loginHtml.find('#emailPasswordError').hide();
-        })
-
-        .then(function() {
-            vex.open({
-              afterOpen: function($vexContent) {
-                $vexContent.append(loginHtml);
-                $('ul.tabs').tabs();
-              }
-            });
-        });
-    }
-
-    permissions = {
-        facebook: "email,user_likes",
-        twitter: "",
-        google: "email,profile",
-        github: "user"
-    };
-
+    // login through the given provider
     var logginProvider = function(provider) {
         authObj.$authWithOAuthPopup(provider, {
           scope: permissions[provider] // the permissions requested
@@ -147,8 +158,8 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
         });
     }
 
+    // populate the user object
     var setUserObject = function() {
-
         var first = function(obj) {
             for (var a in obj) return a;
         }
@@ -170,19 +181,6 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
         return promise;
     }
 
-    service.loggedIn = function(obj) {
-        if (authObj.$getAuth() != null && obj.yes) {
-            if (service.user == null) {
-                setUserObject().then(obj.yes);
-            } else{
-                obj.yes();
-            };
-        } else{
-            if (obj.no) {
-                obj.no();
-            };
-        };
-    }
 
     return service;
 }]);
