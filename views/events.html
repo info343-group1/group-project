@@ -28,9 +28,7 @@
                 <input id="eventZip" type="number" class="validate" ng-model="newEventZip" name="eventZip"ng-minlength="5" ng-maxlength="5">
                 <label for="eventZip">Zip Code of Event</label>
                 <div role="alert">
-                  <span class="error" ng-show="createModal.eventZip.$error.minlength">
-                    Not a valid zip code</span>
-                  <span class="error" ng-show="createModal.eventZip.$error.maxlength">
+                  <span class="error" ng-show="createModal.eventZip.$error.minlength || createModal.eventZip.$error.maxlength">
                     Not a valid zip code</span>
                 </div>
             </div>
