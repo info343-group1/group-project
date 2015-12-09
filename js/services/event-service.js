@@ -35,13 +35,36 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 		eventData.$save(eventData);
 	}
 
-	data.attendEvent = function(event) {
+	data.attendEvent = function(event, isAttending) {
 		var attendingRef = eventRef.child(event.$id).child("usersAttending");
 		var attending = $firebaseArray(attendingRef);
-		attending.$add(Login.user).then(function(ref) {
-			var id = ref.key();
-		})
+
+		if (isAttending) {
+			for (var index in event["usersAttending"]) {
+				if (event["usersAttending"][index].userId == Login.user.userId) {
+					console.log(index)
+					console.log(attending)
+					attending.$remove(index).then(function(ref) {
+						var id = ref.key();
+					})
+				}
+			}
+		} else {
+			attending.$add(Login.user).then(function(ref) {
+				var id = ref.key();
+			})
+		}
+		
 	}
-	
+
+	data.isAttending = function(event) {
+		for (var index in event.usersAttending) {
+			if (event.usersAttending[index].userId == Login.user.userId) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	return data;
 }]);

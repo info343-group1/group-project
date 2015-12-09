@@ -7,6 +7,7 @@ angular.module('FullEventCtrl', []).controller('FullEventCtrl', function($scope,
 		var splitUrl = url.trim().split('&id=');
 		var id = splitUrl[splitUrl.length - 1];
 		$scope.currEvent = $scope.events.$getRecord(id);
+		$scope.attending = Event.isAttending($scope.currEvent);
 
 		var commentRef = Util.firebaseRef.child('events').child($scope.currEvent.$id).child('comments');
 		$scope.comments = $firebaseArray(commentRef);
@@ -26,11 +27,11 @@ angular.module('FullEventCtrl', []).controller('FullEventCtrl', function($scope,
 			});
 		}
 
-		$scope.attendEvent = function() {
+		$scope.toggleAttendEvent = function() {
 			Login.loggedIn({
 	            no: Login.popup,
 	            yes: function() {
-	                Event.attendEvent($scope.currEvent);
+	                Event.attendEvent($scope.currEvent, $scope.attending);
 	            }
 			});
 		}

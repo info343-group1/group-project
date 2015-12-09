@@ -22,7 +22,8 @@
 			</table>
 		</div>
 		<div class="col s12">
-			<button class="btn" id="attend-btn" ng-click="attendEvent()">Attend this Event!</button>
+			<button class="btn" id="attend-btn" ng-click="toggleAttendEvent()" ng-show="!attending">Attend this Event!</button>
+			<button class="btn" id="attend-btn" ng-click="toggleAttendEvent()" ng-show="attending">Stop Attending this Event!</button>
 		</div>
 	</div>
 
