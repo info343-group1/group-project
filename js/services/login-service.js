@@ -8,7 +8,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
     service.user = null;
 
     // Create authorization object that referes to firebase
-    service.authObj = $firebaseAuth(Util.firebaseRef);
+    var authObj = $firebaseAuth(Util.firebaseRef);
  
 
     // SignIn function
@@ -23,13 +23,13 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
         // Catch any errors
         .catch(function(error) {
             // console.error("Error: ", error);
-            $('#emailPasswordError').slideDown();
+            $('#emailPasswordError').fadeIn();
         });
     }
 
     // LogIn function
     var logIn = function(email, password) {
-        return service.authObj.$authWithPassword({
+        return authObj.$authWithPassword({
             email: email,
             password: password
         });
@@ -37,7 +37,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
 
     // LogOut function
     service.logOut = function() {
-        service.authObj.$unauth();
+        authObj.$unauth();
         service.userId = false;
         location.reload();
     }
@@ -45,7 +45,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
     // SignUp function
     var signUp = function() {
         // Create user
-        service.authObj.$createUser({
+        authObj.$createUser({
             email: $('#signUpEmail').val(),
             password: $('#signUpPassord').val()          
         })
@@ -124,7 +124,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
     };
 
     var logginProvider = function(provider) {
-        service.authObj.$authWithOAuthPopup(provider, {
+        authObj.$authWithOAuthPopup(provider, {
           scope: permissions[provider] // the permissions requested
         })
         .then(function(authData) {
@@ -155,7 +155,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
             for (var a in obj) return a;
         }
 
-        var authData = service.authObj.$getAuth();
+        var authData = authObj.$getAuth();
         service.userId = authData.uid;
 
         var promise = $.Deferred();
@@ -170,7 +170,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
     }
 
     service.loggedIn = function(obj) {
-        if (service.authObj.$getAuth() != null && obj.yes) {
+        if (authObj.$getAuth() != null && obj.yes) {
             if (service.user == null) {
                 setUserObject().then(obj.yes);
             } else{
