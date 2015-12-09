@@ -54,7 +54,13 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 				var times = 0;
 				for (var userIndex in e["usersAttending"]) {
 					if (e["usersAttending"][userIndex].id == Login.user.userId) {
+						for(var item in Login.user.attendingEvents) {
+							if (Login.user.attendingEvents[item] == e.$id) {
+								Login.user.firebase.child('attendingEvents').child(item).remove();
+							}
+						}
 						attending.$remove(times);
+						
 					}
 					times++;
 				}
@@ -64,6 +70,7 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 					id: Login.user.userId
 				}
 				attending.$add(uData);
+				Login.user.firebase.child('attendingEvents').push(e.$id);
 			}
 			callback(data.isAttending(e));
 		});
@@ -98,6 +105,7 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 				data.events.forEach(function (item) {
 					if (Login.user.attendingEvents[index] == item.$id) {
 						data.attending.push(item);
+						console.log(data.attending)
 					}
 				})
 			})

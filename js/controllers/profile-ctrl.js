@@ -22,5 +22,5 @@ angular.module('ProfileCtrl', []).controller('ProfileCtrl', function($scope, Log
 			$scope.loggedIn = false;
 			Login.popup();
 		}
-	});
+	});	
 });
