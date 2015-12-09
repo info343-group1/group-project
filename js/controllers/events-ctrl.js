@@ -1,4 +1,4 @@
-angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $state, Event, Leaflet, LocationService, PageData, $location) {
+angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $state, Event, Leaflet, LocationService, PageData, $location, Login) {
 	$scope.results = true;
 	$scope.events = Event.events;
 	console.log($scope.events);
@@ -45,6 +45,15 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 	$scope.searchQuery = function() {
 		$scope.results = !$scope.results;
 	};
+
+	$scope.addEventButton = function() {
+		Login.loggedIn({
+			no: Login.popup,
+			yes: function() {
+				$('#createModal').openModal();
+			}
+		});
+	}
 
 	$scope.addEvent = function() {
 		var address = $scope.newEventAddress;

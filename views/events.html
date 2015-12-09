@@ -3,28 +3,29 @@
     <h2 class="center">{{pageHeader.title}}</h2>
     <div class="row center">
         <h3 class="col s12">{{pageHeader.content}}.</h3>
-        <a class="btn-large" href="#createModal" modal>Create an Event</a>
+        <a class="btn-large" ng-click="addEventButton()">Create an Event</a>
     </div>
 </div>
 <!-- Create Modal -->
 <div id="createModal" class="modal" >
-	<form name="createModal">
+    <form name="createModal">
     <div class="container">
-		<div class="row">
-			<div class="input-field col s12">
-				<input id="eventName" type="text" class="validate" ng-model="newEventName" name="eventName"required>
-				<label for="eventName">Event Name</label>
-			</div>
-			<div class="input-field col s12">
-				<input id="eventDate" type="date" class="datepicker" ng-model="newEventDate">
-				<label for="eventDate"></label>
+        <h3>Add Event</h3>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="eventName" type="text" class="validate" ng-model="newEventName" name="eventName"required>
+                <label for="eventName">Event Name</label>
             </div>
             <div class="input-field col s12">
-            	<input id="eventAddress" type="text" class="validate" ng-model="newEventAddress">
+                <input id="eventDate" type="date" class="datepicker" ng-model="newEventDate">
+                <label for="eventDate"></label>
+            </div>
+            <div class="input-field col s12">
+                <input id="eventAddress" type="text" class="validate" ng-model="newEventAddress">
                 <label for="eventAddress">Event Address</label>
             </div>
             <div class="input-field col s12">
-            	<input id="eventZip" type="number" class="validate" ng-model="newEventZip" name="eventZip"ng-minlength="5" ng-maxlength="5">
+                <input id="eventZip" type="number" class="validate" ng-model="newEventZip" name="eventZip"ng-minlength="5" ng-maxlength="5">
                 <label for="eventZip">Zip Code of Event</label>
                 <div role="alert">
                   <span class="error" ng-show="createModal.eventZip.$error.minlength">
@@ -34,17 +35,17 @@
                 </div>
             </div>
             <div class="input-field col s12">
-            	<textarea id="eventDesc" class="materialize-textarea" ng-model="newEventDescr"></textarea>
+                <textarea id="eventDesc" class="materialize-textarea" ng-model="newEventDescr"></textarea>
                 <label for="eventDesc">Event Description</label>
              </div>
              <div ng-show="multipleLocations">
                 <p>Test</p>
             </div>
-            <div class="col s6 right-align">
-                <a class="btn modal-action modal-close">Cancel</a>
-            </div>
-             <div class="col s6 left-align">
+             <div class="col s6 right-align">
                 <a class="btn" type="button" ng-click="addEvent()">Submit</a>
+            </div>
+            <div class="col s6 left-align">
+                <a class="btn modal-action modal-close">Cancel</a>
             </div>
          </div>
      </div> 
@@ -64,8 +65,8 @@
 
     <div class="row center">
         <ul class="tabs s4" tabs>
-            <li id="map-tab" class="tab"><a class="teal-text" ng-click="changeTab('events.map-view')">Map</a></li>
-            <li id="tile-tab" class="tab"><a class="teal-text" ng-click="changeTab('events.tile-view')">Tiles</a></li>      
+            <li class="tab"><a class="active teal-text" ng-click="changeTab('events.map-view')">Map</a></li>
+            <li class="tab"><a class="teal-text" ng-click="changeTab('events.tile-view')">Tiles</a></li>      
         </ul>
     </div>
     <div class="row" ui-view></div>
