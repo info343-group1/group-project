@@ -14,14 +14,12 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
     var signIn = function() {
         logIn($('#signInEmail').val(), $('#signInPassword').val())
         .then(function(authData){
-            console.log(authData);
             setUserObject();
             vex.close();
             location.reload();
         })
         // Catch any errors
         .catch(function(error) {
-            // console.error("Error: ", error);
             $('#emailPasswordError').fadeIn();
         });
     }
@@ -161,8 +159,10 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
         var promise = $.Deferred();
 
         userRef.orderByChild("userId").equalTo(authData.uid).once("value", function(user) {
-            service.user = user.val()[first(user.val())];
+            var id = first(user.val());
+            service.user = user.val()[id];
             service.user.auth = authData;
+            service.user.id = id;
             promise.resolve();
         });
 
@@ -182,9 +182,6 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
             };
         };
     }
-
-    // Test if already logged in
-    // service.loggedIn({});
 
     return service;
 }]);

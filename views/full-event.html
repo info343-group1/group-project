@@ -26,14 +26,18 @@
 		</div>
 	</div>
 
-	<div class="form-group create-comment row">
-		<form>
-			<div>
-                <textarea ng-model="newComment" id="comment" class="form-control" type="text" placeholder="Comment on this event!"></textarea>
-            </div>
-         
-            <button id="submit-comment" class="btn" ng-click="submitComment()" ng-disabled="!newComment ||  newComment.length < 1">Submit!</button>    	
-		</form>
+	<div class="create-comment row">
+		<div class="row">
+	    <form class="col s12">
+	      <div class="row">
+	        <div class="input-field col s12">
+	          <textarea ng-model="newComment" id="comment" class="materialize-textarea" type="text" placeholder=""></textarea>
+	          <label for="comment">Comment on this event!</label>
+	        </div>
+	      </div>
+	      <button id="submit-comment" class="btn" ng-click="submitComment()" ng-disabled="!newComment ||  newComment.length < 1">Submit!</button>
+	    </form>
+	  </div>
 	</div>
 
 	<div>
