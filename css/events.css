@@ -47,3 +47,19 @@
 .tabs .indicator{
   background-color: #4db6ac;
 }
+
+#createModal {
+  padding-top: 1em;
+}
+
+.tile-header {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 0.15em;
+  margin-top: 0.5em;
+}
+
+.tile-text {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}

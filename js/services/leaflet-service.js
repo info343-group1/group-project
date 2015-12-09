@@ -23,7 +23,7 @@ angular.module('LeafletService', []).service('Leaflet', ['$firebaseObject', '$fi
     	var options = {fillColor: "#00007f", color: "#00007f", fillOpacity: ".8"};
     	var markIcon = L.icon({
 	       iconUrl: './assets/icons/pin65.svg',
-	       iconSize: [20, 40]
+	       iconSize: [40, 50]
     	});
     	data.map(function(item) {
 			LocationService.getLatLong(item.address, function(res) {
