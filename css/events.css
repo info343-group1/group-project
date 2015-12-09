@@ -20,6 +20,10 @@
   flex-wrap: wrap;
 }
 
+.event-tile {
+  min-height: 1px;
+}
+
 .event-info {
   padding-left: 20px;
   padding-bottom: 5px;

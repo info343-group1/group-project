@@ -43,7 +43,7 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 			'description':$scope.newEventDescr
 		}
 
-		LocationService.getLatLong(eventData.address + ' ' + eventData.zip, function(location) {
+		LocationService.getLatLong(address + ' ' + zip, function(location) {
 			var components = location.results[0].address_components;
 			components.forEach(function(component) {
 				if (component.types.indexOf('neighborhood') > -1)
@@ -53,7 +53,7 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 				else if (component.types.indexOf('administrative_area_level_1') > -1)
 					eventData.state = component.long_name;
 			});
-			if (location.results > 1) {
+			if (false) {
 				multipleLocations = true;
 			} else {
 				if ($scope.newEventName && $scope.newEventDate && $scope.newEventAddress && $scope.newEventZip, $scope.newEventDescr) {
