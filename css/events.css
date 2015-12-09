@@ -57,9 +57,11 @@
   font-size: 18px;
   margin-bottom: 0.15em;
   margin-top: 0.5em;
+  color: black;
 }
 
 .tile-text {
   margin-top: 0.25em;
   margin-bottom: 0.25em;
+  color: black;
 }
