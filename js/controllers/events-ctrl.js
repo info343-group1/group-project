@@ -3,6 +3,7 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 	$scope.events = Event.events;
 	console.log($scope.events);
 	$scope.multipleLocations = false;
+	var arrayLoaded = false;
 
 	var url = $location.$$path;
 	var typeArr = url.split('/');
@@ -16,12 +17,19 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 	}
 
 	$scope.init = function() {
+		var url = $location.$$path;
+		var typeArr = url.split('/');
+		var type = typeArr[typeArr.length - 1];
+		console.log('init called');
 		if (type === 'map') {
-			$scope.drawMap();
-			$scope.events.$loaded(function() {
+			if (arrayLoaded) {
+				$scope.events.$loaded(function() {
+					$scope.drawMap();
+					arrayLoaded = true;
+				});
+			} else {
 				$scope.drawMap();
-			});
-
+			}
 		}
 	}
 
