@@ -26,12 +26,18 @@ angular.module('LocationService', []).service('LocationService', ['$http', 'Util
 	 * 					  a position paramater containing the user's position
 	 */
 	service.getUserLocation = function(callback) {
-		if (navigator.geolocation) {
-		    navigator.geolocation.getCurrentPosition(function(position) {
-		    	callback(position);
-		    }, function(error) {
-		    	callback(null);
-		    });
+		if (service.currLocation) {
+			callback(service.currLocation);
+		} else {
+
+			if (navigator.geolocation) {
+			    navigator.geolocation.getCurrentPosition(function(position) {
+			    	callback(position);
+			    	service.currLocation = position;
+			    }, function(error) {
+			    	callback(null);
+			    });
+			}
 		}
 	}
 
