@@ -28,6 +28,7 @@ angular.module('appRoutes', ['ui.router']).config(function($stateProvider, $urlR
 		.state('event', {
 			url:'/event',
 			templateUrl: './views/full-event.html',
+			controller: 'FullEventCtrl'
 		});
 	$(".button-collapse").sideNav();
 });

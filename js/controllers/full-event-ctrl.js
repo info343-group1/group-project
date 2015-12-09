@@ -1,4 +1,5 @@
-angular.module('FullEventsCtrl', []).controller('FullEventsCtrl', function($scope, Event) {
-	var index = 1;
-	$scope.currEvent = Event.events[index];
-}
+angular.module('FullEventCtrl', []).controller('FullEventCtrl', function($scope, Event) {
+	$scope.index = 1;
+	$scope.events = Event.events;
+	$scope.currEvent = $scope.events[1];
+});

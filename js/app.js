@@ -11,7 +11,8 @@ angular.module('app',
     'UtilService',
     'LeafletService',
     'TextService',
-    'LocationService']
+    'LocationService',
+    'FullEventCtrl']
 )
 .controller('MainCtrl', function($scope, Login) {
 	$scope.loggedIn = false;
