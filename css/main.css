@@ -26,6 +26,17 @@ main {
     background-repeat: no-repeat;
 }
 
+.location-link {
+  display: block;
+  color: black;
+  margin-top: 0.15em;
+  margin-bottom: 0.25em;
+}
+
+.location-link:hover {
+  color: blue;
+}
+
 #mock-map{
 	width: 100%;
 }

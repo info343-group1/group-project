@@ -4,6 +4,17 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 	var eventRef = Util.firebaseRef.child('events');
 	data.events = $firebaseArray(eventRef);
 
+	 $('.datepicker').pickadate({
+	 		min: true,
+	    selectMonths: true, // Creates a dropdown to control month
+	    selectYears: 15, // Creates a dropdown of 15 years to control year
+	    container: '#datepickerBox',
+	    format: "mm/dd/yyyy",
+	    formatSubmit: "mm/dd/yyyy",
+	    format: "mm/dd/yyyy",
+	    hiddenName: true
+	  });
+
 	/**
 	 * Saves given event as an event in the database
 	 * 
