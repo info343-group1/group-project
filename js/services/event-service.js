@@ -4,6 +4,17 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 	var eventRef = Util.firebaseRef.child('events');
 	data.events = $firebaseArray(eventRef);
 
+	 $('.datepicker').pickadate({
+	 		min: true,
+	    selectMonths: true, // Creates a dropdown to control month
+	    selectYears: 15, // Creates a dropdown of 15 years to control year
+	    container: '#datepickerBox',
+	    format: "mm/dd/yyyy",
+	    formatSubmit: "mm/dd/yyyy",
+	    format: "mm/dd/yyyy",
+	    hiddenName: true
+	  });
+
 	/**
 	 * Saves given event as an event in the database
 	 * 
@@ -42,14 +53,16 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 		attending.$loaded(function () {
 			console.log(isAttending);
 			if (isAttending) {
+				var times = 0;
 				for (var index in event["usersAttending"]) {
 					if (event["usersAttending"][index].userId == Login.user.userId) {
 						console.log(index)
 						console.log(attending)
-						attending.$remove(event["usersAttending"][index]).then(function(ref) {
+						attending.$remove(times).then(function(ref) {
 							var id = ref.key();
 						});
 					}
+					times++;
 				}
 			} else {
 				attending.$add(Login.user).then(function(ref) {

@@ -64,7 +64,7 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 		var zip = $scope.newEventZip;
 		var eventData = {
 			'name':$scope.newEventName,
-			'date':$scope.newEventDate,
+			'date':$('#eventDate').val(),
 			'description':$scope.newEventDescr
 		}
 
