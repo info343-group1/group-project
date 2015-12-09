@@ -62,6 +62,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
         .then(function() {
             setUserObject();
             vex.close();
+            location.reload();
         })
         // Catch any errors
         .catch(function(error) {
