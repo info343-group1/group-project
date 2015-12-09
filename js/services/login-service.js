@@ -181,6 +181,5 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
         return promise;
     }
 
-
     return service;
 }]);
