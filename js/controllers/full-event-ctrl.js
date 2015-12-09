@@ -1,6 +1,7 @@
 angular.module('FullEventCtrl', []).controller('FullEventCtrl', function($scope, Event, $location, Login, Util, $firebaseArray) {
 	$scope.events = Event.events;
 	
+	// Runs code once the event array has loaded
 	$scope.events.$loaded(function() {
 		var url = $location.$$path;
 		var splitUrl = url.trim().split('&id=');
@@ -11,12 +12,14 @@ angular.module('FullEventCtrl', []).controller('FullEventCtrl', function($scope,
 		var commentRef = Util.firebaseRef.child('events').child($scope.currEvent.$id).child('comments');
 		$scope.comments = $firebaseArray(commentRef);
 
+		// only lets you attend if you are logged in
 		Login.loggedIn({
 	        yes: function() {
 	          $scope.attending = Event.isAttending($scope.currEvent);
 	        }
 		});
 
+		// adds comment to the current event
 		$scope.submitComment = function() {
 			Login.loggedIn({
 		        no: Login.popup,
@@ -35,6 +38,7 @@ angular.module('FullEventCtrl', []).controller('FullEventCtrl', function($scope,
 			});
 		}
 
+		// attend and unnattend event
 		$scope.toggleAttendEvent = function() {
 			Login.loggedIn({
 	            no: Login.popup,
