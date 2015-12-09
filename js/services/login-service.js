@@ -163,6 +163,7 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
             service.user = user.val()[id];
             service.user.auth = authData;
             service.user.id = id;
+            service.user.firebase = userRef.child(id);
             promise.resolve();
         });
 

@@ -13,7 +13,8 @@ angular.module('HomeCtrl', []).controller('HomeCtrl', function($scope, Leaflet, 
     	PageData.getText(function(data){
     		$scope.pageHeader= data.home.header
     		$scope.sections= data.home.cols
-    		console.log($scope.sections)
+            $scope.map=data.home.map
+    		
     	});
     	
     }
