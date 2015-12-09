@@ -46,4 +46,11 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 	$scope.customFilter = function(search) {
 		Leaflet.customFilter(search);
 	}
+
+	$scope.addText = function (){
+		PageData.getText(function(data){
+			$scope.pageHeader= data.events.header
+			console.log($scope.pageHeader.content)
+		});	
+	}
 });

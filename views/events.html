@@ -1,8 +1,8 @@
 <!-- Events Page -->
-<div class="container">
-    <h2 class="center">Header Text</h2>
+<div class="container" ng-init="addText()">
+    <h2 class="center">{{pageHeader.title}}</h2>
     <div class="row center">
-        <h3 class="col s12">Lorem ipsum dolor sit amet, pellentesque rhoncus, vel malesuada. Per amet a, vulputate et mi, mattis vitae. Bibendum arcu urna, ligula praesent.</h3>
+        <h3 class="col s12">{{pageHeader.content}}.</h3>
         <a class="btn-large" href="#createModal" modal>Create an Event</a>
     </div>
 </div>
