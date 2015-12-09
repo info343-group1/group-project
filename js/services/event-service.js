@@ -47,17 +47,16 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 		eventData.$save(eventData);
 	}
 
-	data.attendEvent = function(event, isAttending) {
-		var attendingRef = eventRef.child(event.$id).child("usersAttending");
+	data.attendEvent = function(e, isAttending, callback) {
+		var attendingRef = eventRef.child(e.$id).child("usersAttending");
 		var attending = $firebaseArray(attendingRef);
-		attending.$loaded(function () {
+		attending.$loaded(function (ref) {
 			console.log(isAttending);
 			if (isAttending) {
 				var times = 0;
-				for (var index in event["usersAttending"]) {
-					if (event["usersAttending"][index].userId == Login.user.userId) {
-						console.log(index)
-						console.log(attending)
+				for (var userIndex in e["usersAttending"]) {
+					console.log(e["usersAttending"][userIndex]);
+					if (e["usersAttending"][userIndex].id == Login.user.userId) {
 						attending.$remove(times).then(function(ref) {
 							var id = ref.key();
 						});
@@ -65,18 +64,26 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 					times++;
 				}
 			} else {
-				attending.$add(Login.user).then(function(ref) {
-					var id = ref.key();
-				})
+				console.log(Login.user);
+				var uData = {
+					name: Login.user.name,
+					id: Login.user.userId
+				}
+				attending.$add(uData);
+				// .then(function(ref) {
+				// 	var id = ref.key();
+				// });
+				console.log(uData);
+
 			}
-		})
-		
-		
+			callback(data.isAttending(e));
+		});
 	}
 
-	data.isAttending = function(event) {
-		for (var index in event.usersAttending) {
-			if (event.usersAttending[index].userId == Login.user.userId) {
+	data.isAttending = function(e) {
+		for (var index in e.usersAttending) {
+			console.log(e.usersAttending[index]);
+			if (e.usersAttending[index].id == Login.user.userId) {
 				return true;
 			}
 		}

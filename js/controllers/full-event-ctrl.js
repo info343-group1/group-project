@@ -5,6 +5,7 @@ angular.module('FullEventCtrl', []).controller('FullEventCtrl', function($scope,
 		var url = $location.$$path;
 		var splitUrl = url.trim().split('&id=');
 		var id = splitUrl[splitUrl.length - 1];
+		console.log(id);
 		$scope.currEvent = $scope.events.$getRecord(id);
 		if (Login.user) {
 			$scope.attending = Event.isAttending($scope.currEvent);
@@ -15,19 +16,19 @@ angular.module('FullEventCtrl', []).controller('FullEventCtrl', function($scope,
 
 		$scope.submitComment = function() {
 			Login.loggedIn({
-        no: Login.popup,
-        yes: function() {
-          var commentData = {
-          	content: $scope.newComment,
-          	owner: {
-          		name: Login.user.name,
-          		userId: Login.user.userId
-          	}
-          };
-          $scope.comments.$add(commentData).then(function(ref) {
-          	var id = ref.key();
-          });
-        }
+		        no: Login.popup,
+		        yes: function() {
+		          var commentData = {
+		          	content: $scope.newComment,
+		          	owner: {
+		          		name: Login.user.name,
+		          		userId: Login.user.userId
+		          	}
+		          };
+		          $scope.comments.$add(commentData).then(function(ref) {
+		          	var id = ref.key();
+		          });
+		        }
 			});
 		}
 
@@ -35,7 +36,9 @@ angular.module('FullEventCtrl', []).controller('FullEventCtrl', function($scope,
 			Login.loggedIn({
 	            no: Login.popup,
 	            yes: function() {
-	                Event.attendEvent($scope.currEvent, $scope.attending);
+	                Event.attendEvent($scope.currEvent, $scope.attending, function(attending) {
+	                	$scope.attending = attending;
+	                });
 	            }
 			});
 		}
