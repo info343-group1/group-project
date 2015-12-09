@@ -9,7 +9,6 @@ angular.module('LoginService', []).service('Login', ['$firebaseAuth', '$firebase
 
     // Create authorization object that referes to firebase
     var authObj = $firebaseAuth(Util.firebaseRef);
- 
 
     // SignIn function
     var signIn = function() {
