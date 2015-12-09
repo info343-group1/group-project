@@ -17,20 +17,20 @@
                 <label for="eventName">Event Name</label>
             </div>
             <div class="input-field col s12">
-                <input id="eventDate" type="date" class="datepicker" ng-model="newEventDate">
-                <label for="eventDate"></label>
-            </div>
-            <div class="input-field col s12">
                 <input id="eventAddress" type="text" class="validate" ng-model="newEventAddress">
                 <label for="eventAddress">Event Address</label>
             </div>
-            <div class="input-field col s12">
+            <div class="input-field col s12 m6">
                 <input id="eventZip" type="number" class="validate" ng-model="newEventZip" name="eventZip"ng-minlength="5" ng-maxlength="5">
                 <label for="eventZip">Zip Code of Event</label>
                 <div role="alert">
                   <span class="error" ng-show="createModal.eventZip.$error.minlength || createModal.eventZip.$error.maxlength">
                     Not a valid zip code</span>
                 </div>
+            </div>
+            <div class="input-field col s12 m6">
+                <input id="eventDate" type="date" class="datepicker" ng-model="newEventDate">
+                <label for="eventDate">Date</label>
             </div>
             <div class="input-field col s12">
                 <textarea id="eventDesc" class="materialize-textarea" ng-model="newEventDescr"></textarea>
