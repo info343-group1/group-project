@@ -2,44 +2,10 @@
 <div class="container" ng-init="addText()">
     <h2 class="center">{{pageHeader.title}}</h2>
     <div class="row center">
-        <h3 class="col s12">{{pageHeader.content}}.</h3>
-        <a class="btn-large" href="#createModal" modal>Create an Event</a>
+        <h3 class="col s12">{{pageHeader.content}}</h3>
+        <a class="btn-large" ng-click="addEvent()">Create an Event</a>
     </div>
 </div>
-<!-- Create Modal -->
-<div id="createModal" class="modal" >
-	<div class="container">
-		<div class="row">
-			<div class="input-field col s12">
-				<input id="eventName" type="text" class="validate" ng-model="newEventName">
-				<label for="eventName">Event Name</label>
-			</div>
-			<div class="input-field col s12">
-				<input id="eventDate" type="date" class="datepicker" ng-model="newEventDate">
-				<label for="eventDate"></label>
-            </div>
-            <div class="input-field col s12">
-            	<input id="eventAddress" type="text" class="validate" ng-model="newEventAddress">
-                <label for="eventAddress">Event Address</label>
-            </div>
-            <div class="input-field col s12">
-            	<input id="eventZip" type="number" class="validate" ng-model="newEventZip">
-                <label for="eventZip">Zip Code of Event</label>
-            </div>
-            <div class="input-field col s12">
-            	<textarea id="eventDesc" class="materialize-textarea" ng-model="newEventDescr"></textarea>
-                <label for="eventDesc">Event Description</label>
-             </div>
-             <div class="col s6 right-align">
-                <a class="btn" type="button" ng-click="addEvent()">Submit</a>
-            </div>
-            <div class="col s6 left-align">
-                <a class="btn modal-action modal-close">Cancel</a>
-            </div>
-         </div>
-     </div> 
-</div>
-<!-- End of Create Modal -->
 
 <div class="container">
     <div class="row eventSearch">

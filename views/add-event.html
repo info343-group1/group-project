@@ -1,0 +1,32 @@
+<div class="row" >
+    <form class="col s12" id="addEventForm">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="eventName" name="name" type="text" class="validate" required="" aria-required="true" autofocus>
+                <label for="eventName">Event Name</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="eventAddress" name="address" type="text" class="validate" required="" aria-required="true">
+                <label for="eventAddress">Event Address</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <input id="eventZip" name="zip" type="number" class="validate" required="" aria-required="true">
+                <label for="eventZip">Zip Code of Event</label>
+            </div>
+            <div class="input-field col s12 m6">
+                <input id="eventDate" name="date" type="date" class="datepicker validate" required="" aria-required="true">
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <textarea id="eventDesc" name="description" class="materialize-textarea validate" required="" aria-required="true"></textarea>
+                <label for="eventDesc">Event Description</label>
+            </div>
+        </div>
+        <button type="submit" class="btn waves-effect waves-light">Add Event<i class="material-icons right">add</i></button>
+    </form>
+</div>

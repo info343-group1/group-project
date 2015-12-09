@@ -1,4 +1,4 @@
-angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $state, Event, Leaflet, LocationService, PageData) {
+angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $state, Event, Leaflet, LocationService, PageData, Login) {
 	$scope.results = true;
 	$scope.events = Event.events;
 	console.log($scope.events);
@@ -22,26 +22,58 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 		$scope.results = !$scope.results;
 	};
 
-	$scope.addEvent = function() {
-		var eventData = {
-			'name':$scope.newEventName,
-			'date':$scope.newEventDate,
-			'address':$scope.newEventAddress,
-			'zip':$scope.newEventZip,
-			'description':$scope.newEventDescr
-		}
+	var addEvent = function() {
+		console.log('addEvent');
+		var inputs = $('#addEventForm :input');
+		var eventData = {}
 
-		if ($scope.newEventName && $scope.newEventDate && $scope.newEventAddress && $scope.newEventZip, $scope.newEventDescr) {
+		var noEmptyInput = true;
+		var atleastOneNotEmpty = false;
+
+		inputs.each(function() {
+			if (this.type == "submit") {
+				return
+			};
+			eventData[this.name] = this.value;
+			if (this.value !== '') {
+				atleastOneNotEmpty = true;
+			} else {
+				noEmptyInput = false;
+			}
+		});
+
+		if (noEmptyInput && atleastOneNotEmpty) {
 			Event.addEvent(eventData);
-
-			$scope.newEventName = '';
-			$scope.newEventDate = '';
-			$scope.newEventAddress = '';
-			$scope.newEventZip = '';
-			$scope.newEventDescr = '';
 		}
+	}
 
-		$('#createModal').closeModal();
+	$scope.addEvent = function() {
+		Login.loggedIn({
+			no: Login.popup,
+			yes: function() {
+				var addEventHtml;
+        $.get('./views/add-event.html').then(function(response) {
+            addEventHtml = $(response);
+        })
+        .then(function() {
+            addEventHtml.find('#addEventForm').on('submit', function() {
+                addEvent();
+                return false;
+            });
+        })
+        .then(function() {
+            vex.open({
+              afterOpen: function($vexContent) {
+                $vexContent.append(addEventHtml);
+								// $('.datepicker').pickadate({
+							 //    selectMonths: true, // Creates a dropdown to control month
+							 //    selectYears: 15 // Creates a dropdown of 15 years to control year
+							 //  });
+              }
+            });
+        });
+			}
+		});
 	}
 
 	$scope.customFilter = function(search) {
