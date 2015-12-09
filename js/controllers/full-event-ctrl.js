@@ -1,7 +1,6 @@
 angular.module('FullEventCtrl', []).controller('FullEventCtrl', function($scope, Event, $location, Login, Util, $firebaseArray) {
 	$scope.events = Event.events;
 	
-	// $scope.currEvent = $scope.events[];
 	$scope.events.$loaded(function() {
 		var url = $location.$$path;
 		var splitUrl = url.trim().split('&id=');
@@ -14,16 +13,19 @@ angular.module('FullEventCtrl', []).controller('FullEventCtrl', function($scope,
 
 		$scope.submitComment = function() {
 			Login.loggedIn({
-	            no: Login.popup,
-	            yes: function() {
-	                var commentData = {
-	                	"content": $scope.newComment,
-	                	"owner": Login.user
-	                };
-	                $scope.comments.$add(commentData).then(function(ref) {
-	                	var id = ref.key();
-	                });
-	            }
+        no: Login.popup,
+        yes: function() {
+          var commentData = {
+          	content: $scope.newComment,
+          	owner: {
+          		name: Login.user.name,
+          		userId: Login.user.userId
+          	}
+          };
+          $scope.comments.$add(commentData).then(function(ref) {
+          	var id = ref.key();
+          });
+        }
 			});
 		}
 
