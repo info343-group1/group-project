@@ -1,4 +1,4 @@
-<div ng-repeat="e in events" ng-animate='animate' class="col s12 m6 l4">
+<div ng-repeat="e in events | filter: eventName" ng-animate='animate' class="col s12 m6 l4">
     <div class="project-tile fade">
         <img class="thumbnail" src="http://www.joomlaworks.net/images/demos/galleries/abstract/7.jpg">
         <div class="event-info">
