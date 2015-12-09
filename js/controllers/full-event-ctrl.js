@@ -6,28 +6,31 @@ angular.module('FullEventCtrl', []).controller('FullEventCtrl', function($scope,
 		var splitUrl = url.trim().split('&id=');
 		var id = splitUrl[splitUrl.length - 1];
 		$scope.currEvent = $scope.events.$getRecord(id);
-		if (Login.user) {
-			$scope.attending = Event.isAttending($scope.currEvent);
-		}
 
 		var commentRef = Util.firebaseRef.child('events').child($scope.currEvent.$id).child('comments');
 		$scope.comments = $firebaseArray(commentRef);
 
+		Login.loggedIn({
+	        yes: function() {
+	          $scope.attending = Event.isAttending($scope.currEvent);
+	        }
+		});
+
 		$scope.submitComment = function() {
 			Login.loggedIn({
-        no: Login.popup,
-        yes: function() {
-          var commentData = {
-          	content: $scope.newComment,
-          	owner: {
-          		name: Login.user.name,
-          		userId: Login.user.userId
-          	}
-          };
-          $scope.comments.$add(commentData).then(function(ref) {
-          	var id = ref.key();
-          });
-        }
+		        no: Login.popup,
+		        yes: function() {
+		          var commentData = {
+		          	content: $scope.newComment,
+		          	owner: {
+		          		name: Login.user.name,
+		          		userId: Login.user.userId
+		          	}
+		          };
+		          $scope.comments.$add(commentData).then(function(ref) {
+		          	var id = ref.key();
+		          });
+		        }
 			});
 		}
 
