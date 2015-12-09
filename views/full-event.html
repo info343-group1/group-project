@@ -3,4 +3,24 @@
 	<p>{{currEvent.description}}</p>
 	<p>{{currEvent.address}}</p>
 	<p ng-show="currEvent.city">{{currEvent.city}}, {{currEvent.state}}</p>
+
+	<div class="form-group">
+		<form>
+			<div>
+                <textarea id="comment" class="form-control" type="text" placeholder="Comment on this event!"></textarea>
+            </div>
+         
+            <button id="submit-comment" class="btn" ng-model="newComment" ng-click="submitComment()">Submit!</button>    	
+		</form>
+	</div>
+
+	<div class="container">
+		<h2>Reviews</h2>
+	</div>
+
+	<div class="container reviews">
+		<ol>
+			
+		</ol>
+	</div>
 </div>
