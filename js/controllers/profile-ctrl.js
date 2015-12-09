@@ -16,7 +16,7 @@ angular.module('ProfileCtrl', []).controller('ProfileCtrl', function($scope, Log
 			$scope.loggedIn = true;
 			console.log(Login.user);
 			var provider = Login.authObj.$getAuth()["provider"];
-			$scope.currentUser = Login.authObj.$getAuth()[provider];
+			$scope.currentUser = Login.user;
 			$scope.image = "https://upload.wikimedia.org/wikipedia/commons/7/77/SpaceNeedleTopClose.jpg";
 
 			if (Login.authObj.$getAuth()[provider].profileImageURL != null) {
