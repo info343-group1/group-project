@@ -87,29 +87,28 @@ angular.module('EventService', []).service('Event', ['$firebaseObject', '$fireba
 
 	data.getOwnedEvents = function() {
 		data.owned = [];
-		for(var index in Login.user.createdEvents) {
-			data.events.$loaded(function () {
+		data.events.$loaded(function () {
+			for(var index in Login.user.createdEvents) {
 				data.events.forEach(function (item) {
 					if (Login.user.createdEvents[index] == item.$id) {
 						data.owned.push(item);
 					}
-				})
-			})
-		}
+				})	
+			}
+		})
 	}
 
 	data.getAttendingEvents = function() {
 		data.attending = [];
-		for(var index in Login.user.attendingEvents) {
-			data.events.$loaded(function () {
+		data.events.$loaded(function () {
+			for(var index in Login.user.attendingEvents) {
 				data.events.forEach(function (item) {
 					if (Login.user.attendingEvents[index] == item.$id) {
 						data.attending.push(item);
-						console.log(data.attending)
 					}
 				})
-			})
-		}
+			}
+		})
 	}
 
 	return data;

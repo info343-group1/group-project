@@ -1,7 +1,6 @@
 angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $state, Event, Leaflet, LocationService, PageData, $location, Login) {
 	$scope.results = true;
 	$scope.events = Event.events;
-	console.log($scope.events);
 	$scope.multipleLocations = false;
 	$scope.locations = [];
 	var arrayLoaded = false;
@@ -77,7 +76,6 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 			if (location.results.length > 1) {
 				$scope.locations = location.results;
 				$scope.multipleLocations = true;
-				console.log($scope.locations);
 			} else {
 				if ($scope.newEventName && $scope.newEventDate && $scope.newEventAddress && $scope.newEventZip, $scope.newEventDescr) {
 					var components = location.results[0].address_components;
@@ -148,7 +146,6 @@ angular.module('EventsCtrl', []).controller('EventsCtrl', function($scope, $stat
 	$scope.addText = function (){
 		PageData.getText(function(data){
 			$scope.pageHeader= data.events.header
-			console.log($scope.pageHeader.content)
 		});	
 	}
 });

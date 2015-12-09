@@ -2,13 +2,13 @@ angular.module('ProfileCtrl', []).controller('ProfileCtrl', function($scope, Log
 	$scope.ready = false;
 	$scope.loggedIn = false;
 
+	// there is a bug where the profile page must be refreshed before changes will apply
 	Login.loggedIn({
 		yes: function() {
 			$scope.ready = true;
 			$scope.loggedIn = true;
 			var provider = Login.user.auth["provider"];
 			$scope.currentUser = Login.user;
-			$scope.image = "https://upload.wikimedia.org/wikipedia/commons/7/77/SpaceNeedleTopClose.jpg";
 			Event.getOwnedEvents();
 			$scope.ownedEvents = Event.owned;
 			Event.getAttendingEvents();
